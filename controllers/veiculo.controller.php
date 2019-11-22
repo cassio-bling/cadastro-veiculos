@@ -16,16 +16,18 @@ class VeiculoController extends Controller
 
     function create()
     {
-        if (isset($_POST["descricao"])) {
+        if (isset($_POST["submit"])) {
 
             $veiculo = new Veiculo();
 
             if ($veiculo->insert($this->map())) {
                 header("Location: " . WEBROOT);
             }
+        } else if (isset($_POST["cancel"])) {
+            header("Location: " . WEBROOT);
         }
 
-        $this->render("veiculo.view");
+        $this->render("form.veiculo");
     }
 
     function edit($id)
@@ -34,14 +36,16 @@ class VeiculoController extends Controller
 
         $d["veiculo"] = $veiculo->get($id);
 
-        if (isset($_POST["descricao"])) {
+        if (isset($_POST["submit"])) {
             if ($veiculo->update($this->map())) {
                 header("Location: " . WEBROOT);
             }
+        } else if (isset($_POST["cancel"])) {
+            header("Location: " . WEBROOT);
         }
 
         $this->set($d);
-        $this->render("veiculo.view");
+        $this->render("form.veiculo");
     }
 
     function delete($id)

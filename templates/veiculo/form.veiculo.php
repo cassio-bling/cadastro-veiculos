@@ -10,10 +10,9 @@
     <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
 </head>
 
-
 <body>
     <h3 class="page-header">Veículo - Dados cadastrais</h3>
-    <form method='post' action=''>
+    <form method="post" action="" >
 
         <div class="row">
             <div class="form-group col-md-1" <?php if (!isset($veiculo["id"])) echo "hidden" ?> >
@@ -161,8 +160,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <a href="../../" class="btn btn-default">Cancelar</a>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary">Salvar</button>
+                <button type="cancel" value="cancel" name="cancel" class="btn btn-secondary">Cancelar</button>
             </div>
         </div>
     </form>
