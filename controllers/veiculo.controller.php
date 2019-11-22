@@ -1,7 +1,7 @@
 <?php
 
-require_once(ROOT . 'classes/veiculo.class.php');
-require_once(ROOT . 'models/veiculo.model.php');
+require_once(ROOT . "classes/veiculo.class.php");
+require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
 
@@ -9,7 +9,7 @@ class VeiculoController extends Controller
     {
         $veiculo = new Veiculo();
 
-        $d['veiculos'] = $veiculo->getAll();
+        $d["veiculos"] = $veiculo->getAll();
         $this->set($d);
         $this->render("index");
     }

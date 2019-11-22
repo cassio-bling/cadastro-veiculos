@@ -22,7 +22,7 @@
             }
             else
             {
-                require(ROOT . "templates/layouts/" . $this->layout . '.php');
+                require(ROOT . "templates/layouts/" . $this->layout . ".php");
             }
         }
 
@@ -43,4 +43,3 @@
         }
 
     }
-?>

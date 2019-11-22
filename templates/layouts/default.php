@@ -1,15 +1,12 @@
 <!doctype html>
 
 <head>
+    <title>MVC Veículo</title>    
     <meta charset="utf-8">
-
-    <title>MVC Veículo</title>
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="starter-template.css" rel="stylesheet">
 
-    <style>
+    <!-- <style>
         body {
             padding-top: 5rem;
         }
@@ -18,7 +15,7 @@
             padding: 3rem 1.5rem;
             text-align: center;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
@@ -39,8 +36,6 @@
         </div>
 
     </main>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

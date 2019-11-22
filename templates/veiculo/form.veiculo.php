@@ -6,69 +6,91 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../styles/style.css?123">
 </head>
 
 <body>
-    <h3 class="page-header">Veículo - Dados cadastrais</h3>
-    <form method="post" action="" >
+    <!-- <form>                
+        <ul class="form-style-1">
+            <li>
+                <input type="button" value="Submit" />
+            </li>
+        </ul>
+    </form> -->
 
-        <div class="row">
-            <div class="form-group col-md-1" <?php if (!isset($veiculo["id"])) echo "hidden" ?> >
+    <form method="post" action="">
+        <h3 class="page-header">Veículo - Dados cadastrais</h3>
+
+        <div>
+            <!-- <div class="input-container" <?php if (!isset($veiculo["id"])) echo "hidden" ?>>
                 <label for="descricao">Id</label>
                 <input type="text" class="form-control" id="id" name="id" value="<?php if (isset($veiculo["id"])) echo $veiculo["id"]; ?>">
-            </div>    
-        
-            <div class="form-group col-md-4">
+            </div> -->
+            <span class="block-half">
                 <label for="descricao">Descrição</label>
                 <input type="text" class="form-control" id="descricao" maxlength="60" placeholder="Descrição do veículo" name="descricao" value="<?php if (isset($veiculo["descricao"])) echo $veiculo["descricao"]; ?>">
-            </div>
-            <div class="form-group col-md-2">
+            </span>
+            <span class="block-half">
+                <label for="descricao">Descrição</label>
+                <input type="text" class="form-control" id="descricao" maxlength="60" placeholder="Descrição do veículo" name="descricao" value="<?php if (isset($veiculo["descricao"])) echo $veiculo["descricao"]; ?>">
+            </span>
+            <span class="block-quarter">
                 <label for="placa">Placa</label>
                 <input type="text" class="form-control placa" id="placa" placeholder="Placa do veículo" name="placa" value="<?php if (isset($veiculo["placa"])) echo $veiculo["placa"]; ?>">
-            </div>
-            <div class="form-group col-md-3">
+            </span>
+            <span class="block-quarter">
                 <label for="codigoRenavan">Código RENAVAN</label>
                 <input type="text" class="form-control renavan" id="codigoRenavan" placeholder="RENAVAN do veículo" name="codigoRenavam" value="<?php if (isset($veiculo["codigoRenavam"])) echo $veiculo["codigoRenavam"]; ?>">
-            </div>
+            </span>
         </div>
-
+        <div>
+            <span class="block-full">
+                <label for="codigoRenavan">Código RENAVAN</label>
+                <input type="text" class="form-control renavan" id="codigoRenavan" placeholder="RENAVAN do veículo" name="codigoRenavam" value="<?php if (isset($veiculo["codigoRenavam"])) echo $veiculo["codigoRenavam"]; ?>">
+            </span>
+        </div>
         <div class="row">
-            <div class="form-group col-md-2">
+            <span class="block-quarter">
                 <label for="anoModelo">Ano modelo</label>
-                <div class="input-group date datepicker" data-provide="datepicker"  style="top: -3px;">
+                <input type="text" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
+                <!-- <div class="input-group date datepicker" data-provide="datepicker" style="top: -3px;">
                     <input type="text" class="form-control" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            </span>
 
-            <div class="form-group col-md-2">
+            <span class="block-quarter">
                 <label for="anoFabricacao">Ano fabricação</label>
-                <div class="input-group date datepicker" data-provide="datepicker"  style="top: -3px;">
+                <input type="text" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
+                <!-- <div class="input-group date datepicker" data-provide="datepicker" style="top: -3px;">
                     <input type="text" class="form-control" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            </span>
 
-            <div class="form-group col-md-2">
+            <!-- <span class="block-half-quarter">
                 <label for="cor">Cor</label>
                 <input type="text" class="form-control" id="cor" maxlength="20" placeholder="Cor do veículo" name="cor" value="<?php if (isset($veiculo["cor"])) echo $veiculo["cor"]; ?>">
-            </div>
+            </span>
 
-            <div class="form-group col-md-1">
+            <span class="block-half-quarter">
                 <label for="km">KM</label>
                 <input type="text" class="form-control km" id="km" placeholder="KM" name="km" value="<?php if (isset($veiculo["km"])) echo $veiculo["km"]; ?>">
-            </div>
+            </span> -->
 
-            <div class="form-group col-md-2">
+            <span class="block-quarter">
+                <label for="preco">Preço</label>
+                <input type="text" name="preco" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["preco"])) echo $veiculo["preco"]; ?>">
+            </span>
+
+            <span class="block-quarter">
                 <label for="marca">Marca</label>
-                <select class="form-control" id="marca" name="marca">
-                    <option disabled selected value> -- marca -- </option>                    
+                <select id="marca" name="marca">
+                    <option disabled selected value> -- marca -- </option>
                     <option value="Citroen" <?php if (isset($veiculo["marca"]) && $veiculo["marca"] == "Citroen") echo "selected"; ?>>Citroen</option>
                     <option value="Chevrolet" <?php if (isset($veiculo["marca"]) && $veiculo["marca"] == "Chevrolet") echo "selected"; ?>>Chevrolet</option>
                     <option value="Fiat" <?php if (isset($veiculo["marca"]) && $veiculo["marca"] == "Fiat") echo "selected"; ?>>Fiat</option>
@@ -78,20 +100,37 @@
                     <option value="Toyota" <?php if (isset($veiculo["marca"]) && $veiculo["marca"] == "Toyota") echo "selected"; ?>>Toyota</option>
                     <option value="Volkswagen" <?php if (isset($veiculo["marca"]) && $veiculo["marca"] == "Volkswagen") echo "selected"; ?>>Volkswagen</option>
                 </select>
-            </div>
+            </span>
         </div>
 
-        <div class="row">
-            <div class="form-group col-md-2">
+        <div>
+            <span class="block-quarter">
                 <label for="preco">Preço</label>
-                <input name="preco" class="form-control dinheiro" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["preco"])) echo $veiculo["preco"]; ?>">
-            </div>
+                <input type="text" name="preco" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["preco"])) echo $veiculo["preco"]; ?>">
+            </span>
 
-            <div class="form-group col-md-2">
+            <span class="block-quarter">
                 <label for="precoFipe">Preço FIPE</label>
-                <input name="precoFipe" class="form-control dinheiro" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
-            </div>
+                <input type="text" name="precoFipe" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
+            </span>
 
+            <span class="block-quarter">
+                <label for="precoFipe">Preço FIPE</label>
+                <input type="text" name="precoFipe" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
+            </span>
+
+            <span class="block-quarter">
+                <label for="precoFipe">Preço FIPE</label>
+                <input type="text" name="precoFipe" placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
+            </span>
+
+        </div>
+
+        <div>
+            <span class="block-full">
+                <label for="codigoRenavan">Código RENAVAN</label>
+                <input type="text" class="form-control renavan" id="codigoRenavan" placeholder="RENAVAN do veículo" name="codigoRenavam" value="<?php if (isset($veiculo["codigoRenavam"])) echo $veiculo["codigoRenavam"]; ?>">
+            </span>
         </div>
 
         <h3 class="page-header">Componentes adicionais</h3>
