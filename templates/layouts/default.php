@@ -4,8 +4,6 @@
     <title>MVC Veículo</title>    
     <meta charset="utf-8">
 
-    <link href="starter-template.css" rel="stylesheet">
-
     <!-- <style>
         body {
             padding-top: 5rem;
@@ -31,7 +29,7 @@
 
     <main role="main" class="container">
 
-        <div class="starter-template">
+        <div>
             <?php echo $content_for_layout; ?>
         </div>
 
