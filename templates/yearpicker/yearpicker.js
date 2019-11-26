@@ -179,10 +179,10 @@ var render = {
         var selectedYear = this.year;
         var now = new Date();
         // current year
-        var thisYear = null; //now.getFullYear();
+        var thisYear = now.getFullYear();
 
         var start = -5;
-        var end = 6;
+        var end = 4;
         var items = [];
         var prevDisabled = false;
         var nextDisabled = false;
@@ -310,28 +310,36 @@ var Yearpicker = (function() {
                 endYear = options.endYear,
                 year = options.year;
 
-            //this.trigger = $(options.trigger);
+            // this.trigger = $(options.trigger);
             this.isInput = $this.is("input") || $this.is("textarea");
             initialValue = this.getValue();
             this.initialValue = initialValue;
             this.oldValue = initialValue;
-            year = year || initialValue || new Date().getFullYear();
 
+            year = year || initialValue || new Date().getFullYear();
+            console.log(year);
             if (startYear) {
+
                 if (year < startYear) {
                     year = startYear;
                 }
                 this.startYear = startYear;
             }
-
             if (endYear) {
                 if (year > endYear) {
                     year = endYear;
                 }
                 this.endYear = endYear;
             }
+            console.log(initialValue)
+            if (isNaN(initialValue)) {
+                console.log("LALA")
+                this.year = null;
+            } else {
+                console.log("LULu")
+                this.year = year;
+            }
 
-            this.year = year;
             this.viewYear = year;
             this.initialYear = year;
             this.bind();

@@ -9,14 +9,12 @@
     <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/yearpicker/yearpicker.css" ?>>
     <script src=<?php echo WEBROOT . "templates/jquery/jquery.js" ?>></script>
     <script src=<?php echo WEBROOT . "templates/jquery/jquery.mask.js" ?>></script>
-    <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>    
-    <script src=<?php echo WEBROOT . "templates/yearpicker/yearpicker.js" ?>></script>    
+    <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
+    <script src=<?php echo WEBROOT . "templates/yearpicker/yearpicker.js" ?>></script>
 </head>
 
 <body>
     <form name="veiculo" method="post" action="">
-    <input type="text" class="ano" maxlength="4">
-
         <h3 class="page-header">Dados cadastrais</h3>
         <hr>
         <div hidden>
@@ -39,24 +37,12 @@
         <div class="row">
             <span class="block-small">
                 <label for="anoModelo">Ano modelo</label>
-                <input type="text" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" required value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
-                <!-- <div class="input-group date datepicker" data-provide="datepicker" style="top: -3px;">
-                    <input type="text" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                    </div>
-                </div> -->
+                <input type="text" class="yearpicker" maxlength="4" autocomplete="off" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" required value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
             </span>
 
             <span class="block-small">
                 <label for="anoFabricacao">Ano fabricação</label>
-                <input type="text" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" required value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
-                <!-- <div class="input-group date datepicker" data-provide="datepicker" style="top: -3px;">
-                    <input type="text" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                    </div>
-                </div> -->
+                <input type="text" class="yearpicker" maxlength="4" autocomplete="off" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" required value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
             </span>
 
             <span class="block-quarter">
@@ -88,11 +74,11 @@
         <div>
             <span class="block-quarter">
                 <label for="preco">Preço</label>
-                <input type="text" class="dinheiro" name="preco" id="preco" required placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["preco"])) echo $veiculo["preco"]; ?>">
+                <input type="text" class="dinheiro" name="preco" id="preco" required placeholder="R$" maxlength="10" value="<?php if (isset($veiculo["preco"])) echo $veiculo["preco"]; ?>">
             </span>
             <span class="block-quarter">
                 <label for="precoFipe">Preço FIPE</label>
-                <input type="text" class="dinheiro" name="precoFipe" id="precoFipe" required placeholder="R$" maxlength="13" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
+                <input type="text" class="dinheiro" name="precoFipe" id="precoFipe" required placeholder="R$" maxlength="10" value="<?php if (isset($veiculo["precoFipe"])) echo $veiculo["precoFipe"]; ?>">
             </span>
         </div>
 

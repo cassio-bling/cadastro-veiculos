@@ -10,7 +10,6 @@ function validateForm() {
         validField("marca") &
         validField("preco") &
         validField("precoFipe");
-    console.log(allValid);
     return allValid == 1;
 }
 
@@ -37,7 +36,7 @@ $(document).ready(function() {
         },
         onKeyPress: function(value, event) {
             event.currentTarget.value = value.toUpperCase();
-        }
+        },
     });
 
     $('.dinheiro').mask("#.##0,00", {
@@ -52,33 +51,19 @@ $(document).ready(function() {
         reverse: true
     });
 
-    $('.ano').mask("X00", {
-        // "translation": {
-        //     ZZZZ: {
-        //         pattern: /^(?:19(?:2[0-9])|20[0-9][0-9])$/,
-        //         recursive: true
-        //     },
-        // }
-        translation: {
-            // SSSS: {
-            //     pattern: /"^([0-1]|1[0-2])$"/,
-            //     recursive: false
-            // },
-            X: {
-                pattern: /([1~9]|[2~0])/,
-                recursive: false
+    $('.ano').mask("0000", {
+        "translation": {
+            0: {
+                pattern: /(0-9])/,
             },
-            S: {
-                pattern: /[09]/,
-                recursive: true
-            }
-        }
+        },
     });
 
     $('.yearpicker').yearpicker({
-        startYear: 1900,
-        endYear: 2099,
         year: null,
+        startYear: 1920,
+        endYear: 2099,
+        // }).on('input', function(event) {
+        //     this.value = RegExp(/(19[0-8][0-9]|199[0-9]|20[0-8][0-9]|209[0-9])/, this.value);
     });
-
 });

@@ -23,7 +23,7 @@ class VeiculoModel extends BaseModel
     }
     public function setPlaca($placa)
     {
-        $this->placa = $placa;
+        $this->placa = preg_replace("/[^A-Z0-9]+/", "", $placa);
     }
     public function setCodigoRenavam($codigoRenavam)
     {
@@ -51,6 +51,8 @@ class VeiculoModel extends BaseModel
     }
     public function setPreco($preco)
     {
+        $preco = preg_replace("/[.]+/", "", $preco);
+        $preco = preg_replace("/[,]+/", ".", $preco);
         $this->preco = $preco;
     }
     public function setPrecoFipe($precoFipe)

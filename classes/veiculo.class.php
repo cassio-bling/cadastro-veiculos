@@ -5,8 +5,10 @@ class Veiculo extends Base
 {
     const TABELA = "veiculo";
 
+    const CONSTANTE_PUBLICA = "id";
+
     private function parse($model)
-    {
+    {                
         $data = array(
             "id" => $model->getId(),
             "descricao" => $model->getDescricao(),
@@ -45,7 +47,10 @@ class Veiculo extends Base
             $params["precoFipe"]
         );
 
-        $resultado = $comando->execute();
+        $resultado = $comando->execute();        
+
+        echo $comando->error;
+
         Database::disconnect();
         return $resultado;
     }
@@ -55,7 +60,7 @@ class Veiculo extends Base
         $sql = "UPDATE " . self::TABELA . " SET descricao = ?, placa = ?, codigoRenavam = ?, anoModelo = ?, anoFabricacao = ?, cor = ?, km = ?, marca = ?, preco = ?, precoFipe = ? WHERE id = ?";
 
         $params = $this->parse($model);
-
+        var_dump($params);
         $conexao = Database::connect();
         $comando = $conexao->prepare($sql);
         $comando->bind_param(
@@ -74,6 +79,9 @@ class Veiculo extends Base
         );
 
         $resultado = $comando->execute();
+
+        echo $comando->error;
+        
         Database::disconnect();
         return $resultado;
     }

@@ -4,12 +4,37 @@ require_once(ROOT . "classes/veiculo.class.php");
 require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
+    private $limit = 5;
+    public $offset = 0;
 
     function index()
     {
         $veiculo = new Veiculo();
+        $count = $veiculo->count();
 
-        $d["veiculos"] = $veiculo->getAll();
+        if (isset($_POST["first"])) {
+            $this->offset = 0;
+        } else if (isset($_POST["prior"])) {
+            if ($_POST["offset"] > 0) {
+                $this->offset = $_POST["offset"] - $this->limit;
+            }
+            else { 
+                $this->offset = $_POST["offset"];
+            }
+        } else if (isset($_POST["next"])) {
+            if ($_POST["offset"] + $this->limit < $count) {
+                $this->offset = $_POST["offset"] + $this->limit;
+            } else {
+                $this->offset = $_POST["offset"];
+            }
+        } else if (isset($_POST["last"])) {
+            
+            $this->offset = round(floor($veiculo->count() / $this->limit) * $this->limit);
+        }
+
+        $d["veiculos"] = $veiculo->getAllPaginated($this->limit, $this->offset);
+        $d["offset"] = $this->offset;
+        
         $this->set($d);
         $this->render("index");
     }
