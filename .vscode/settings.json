@@ -1,0 +1,20 @@
+{    
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check",
+            "iconColour": "green",
+            "background": "cyan",
+            "foreground": "black",
+            // "type": "line",
+            "fontWeight": "bolder"
+        },
+        "FIXME": {
+            "icon": "alert",
+            "iconColour": "yellow",
+            "background": "yellow",
+            "foreground": "black",
+            // "type": "",
+            "fontWeight": "bolder"
+        }
+    }
+}

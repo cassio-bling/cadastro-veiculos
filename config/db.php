@@ -19,6 +19,7 @@ class Database
         if (null == self::$conexao) {
             try {
                 self::$conexao =  new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+                self::$conexao->set_charset("utf8");
             } catch (mysqli_error $e) {
                 die($e->getMessage());
             }

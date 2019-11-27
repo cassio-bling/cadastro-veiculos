@@ -1,73 +1,72 @@
 <?php
 
 require_once(ROOT . "classes/veiculo.class.php");
+require_once(ROOT . "classes/componente.class.php");
+require_once(ROOT . "classes/veiculo_componente.class.php");
 require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
-    private $limit = 5;
-    public $offset = 0;
+    const LIMIT = 5;
 
     function index()
-    {
+    {        
         $veiculo = new Veiculo();
-        $count = $veiculo->count();
-
-        if (isset($_POST["first"])) {
-            $this->offset = 0;
-        } else if (isset($_POST["prior"])) {
-            if ($_POST["offset"] > 0) {
-                $this->offset = $_POST["offset"] - $this->limit;
-            }
-            else { 
-                $this->offset = $_POST["offset"];
-            }
-        } else if (isset($_POST["next"])) {
-            if ($_POST["offset"] + $this->limit < $count) {
-                $this->offset = $_POST["offset"] + $this->limit;
-            } else {
-                $this->offset = $_POST["offset"];
-            }
-        } else if (isset($_POST["last"])) {
-            
-            $this->offset = round(floor($veiculo->count() / $this->limit) * $this->limit);
-        }
-
-        $d["veiculos"] = $veiculo->getAllPaginated($this->limit, $this->offset);
-        $d["offset"] = $this->offset;
         
+        $this->managePagination($veiculo->count());
+
+        $d["data"] = $veiculo->getAllPaginated(self::LIMIT, $this->offset);
+
         $this->set($d);
         $this->render("index");
     }
 
     function create()
     {
-        if (isset($_POST["save"])) {
-
+        if (isset($_POST["cancel"])) {
+            $this->redirect();
+        }        
+        else if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
-
             if ($veiculo->insert($this->map())) {
-                header("Location: " . WEBROOT);
+                $this->redirect();
             }
-        } else if (isset($_POST["cancel"])) {
-            header("Location: " . WEBROOT);
+            
+            /*TODO: tratar falha do insert*/
+
         } else {
+            $componente = new Componente();
+            $d["componentes"] = $componente->getAll();
+            $this->set($d);
             $this->render("form.veiculo");
         }
     }
 
     function edit($id)
     {
-        $veiculo = new Veiculo();
-
-        $d["veiculo"] = $veiculo->get($id);
-
-        if (isset($_POST["save"])) {
+        if (isset($_POST["cancel"])) {
+            $this->redirect();
+        }
+        else if (isset($_POST["save"])) {
+            $veiculo = new Veiculo();        
+            
             if ($veiculo->update($this->map())) {
-                header("Location: " . WEBROOT);
-            }
-        } else if (isset($_POST["cancel"])) {
-            header("Location: " . WEBROOT);
+                $veiculo_componente = new VeiculoComponente();
+                if (isset($_POST["componentes"])) {
+                    $veiculo_componente->update($id, $_POST["componentes"]);
+                } else {
+                    $veiculo_componente->delete($id);
+                }
+                
+                $this->redirect();
+            }        
         } else {
+            $veiculo = new Veiculo();
+            
+            $d["veiculo"] = $veiculo->get($id);
+            
+            $veiculo_componente = new VeiculoComponente();
+            $d["componentes"] = $veiculo_componente->get($id);
+            
             $this->set($d);
             $this->render("form.veiculo");
         }
@@ -77,14 +76,14 @@ class VeiculoController extends Controller
     {
         $veiculo = new Veiculo();
         if ($veiculo->delete($id)) {
-            header("Location: " . WEBROOT);
+            $this->redirect();
         }
     }
 
     private function map()
     {
         $model = new VeiculoModel();
-
+        
         if (isset($_POST["id"])) {
             $model->setId($_POST["id"]);
         }
@@ -101,5 +100,9 @@ class VeiculoController extends Controller
         $model->setPrecoFipe($_POST["precoFipe"]);
 
         return $model;
+    }
+
+    private function redirect() {
+        return header("Location: " . WEBROOT);
     }
 }

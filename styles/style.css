@@ -1,3 +1,4 @@
+@charset "UTF-8";
 form {
     margin: 10px;
     padding: 10px 15% 10px 15%;
@@ -29,6 +30,10 @@ span {
     display: inline-block;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+span.right {
+    text-align: right;
 }
 
 span.block-tiny {
@@ -117,6 +122,7 @@ input[type=button].insert {
     background: green;
 }
 
+input[type=submit].selected-page,
 input[type=submit].pagination,
 input[type=button].delete,
 input[type=button].edit {
@@ -135,6 +141,10 @@ input[type=button].delete {
 
 input[type=submit].pagination {
     background: darkolivegreen;
+}
+
+input[type=submit].selected-page {
+    background: darkgreen;
 }
 
 input[type=button].insert:hover {
@@ -241,6 +251,42 @@ tr:nth-child(even) {
     position: relative;
     border: 1px solid red;
     outline: none;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted darkgreen;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: darkgreen;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 
 @media only screen and (max-width: 600px) {

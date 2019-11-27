@@ -1,30 +1,12 @@
 <?php
 
 require_once("../models/veiculo.model.php");
-class Veiculo extends Base
+require_once("interfaces/crud.interface.php");
+class Veiculo extends Base implements ICrud
 {
+    public $componentes;
+    
     const TABELA = "veiculo";
-
-    const CONSTANTE_PUBLICA = "id";
-
-    private function parse($model)
-    {                
-        $data = array(
-            "id" => $model->getId(),
-            "descricao" => $model->getDescricao(),
-            "placa" => $model->getPlaca(),
-            "codigoRenavam" => $model->getCodigoRenavam(),
-            "anoModelo" => $model->getAnoModelo(),
-            "anoFabricao" => $model->getAnoFabricacao(),
-            "cor" => $model->getCor(),
-            "km" => $model->getKm(),
-            "marca" => $model->getMarca(),
-            "preco" => $model->getPreco(),
-            "precoFipe" => $model->getPrecoFipe()
-        );
-
-        return $data;
-    }
 
     public function insert($model)
     {
@@ -47,7 +29,7 @@ class Veiculo extends Base
             $params["precoFipe"]
         );
 
-        $resultado = $comando->execute();        
+        $resultado = $comando->execute();
 
         echo $comando->error;
 
@@ -81,8 +63,27 @@ class Veiculo extends Base
         $resultado = $comando->execute();
 
         echo $comando->error;
-        
+
         Database::disconnect();
         return $resultado;
+    }
+
+    private function parse($model)
+    {
+        $data = array(
+            "id" => $model->getId(),
+            "descricao" => $model->getDescricao(),
+            "placa" => $model->getPlaca(),
+            "codigoRenavam" => $model->getCodigoRenavam(),
+            "anoModelo" => $model->getAnoModelo(),
+            "anoFabricao" => $model->getAnoFabricacao(),
+            "cor" => $model->getCor(),
+            "km" => $model->getKm(),
+            "marca" => $model->getMarca(),
+            "preco" => $model->getPreco(),
+            "precoFipe" => $model->getPrecoFipe()
+        );
+
+        return $data;
     }
 }

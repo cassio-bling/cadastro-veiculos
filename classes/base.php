@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: text/html; charset=UTF-8');
 abstract class Base
 {
     const TABELA = "";
@@ -19,7 +19,7 @@ abstract class Base
         $conexao = Database::connect();
         $result = $conexao->query("SELECT * FROM " . static::TABELA);
         Database::disconnect();
-        return $result;
+        return $result;    
     }
 
     public function getAllPaginated(int $limit = 20, int $offset = 0)
@@ -29,7 +29,7 @@ abstract class Base
         $query->bind_param("ii", $limit, $offset);
         $query->execute();
         $result = $query->get_result();
-        $fetch = $result->fetch_assoc();
+        // $fetch = $result->fetch_assoc();
         Database::disconnect();
         // return $fetch;
         return $result;
@@ -56,7 +56,4 @@ abstract class Base
         Database::disconnect();
         return $comando;
     }
-
-    public abstract function insert($model);
-    public abstract function update($model);
 }

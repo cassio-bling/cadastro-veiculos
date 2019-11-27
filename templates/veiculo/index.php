@@ -4,37 +4,53 @@
 
 <body>
     <form class="grid" method="post">
-        <h1>Cadastro de veículos</h1>
-        <div class="row col-md-12 centered">
-            <table class="table table-striped custab">
-                <thead>
-                    <tr>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Placa</th>
-                        <th class="text-center">Marca</th>
-                        <th class="action">
-                            <input type="button" class="insert" value="Incluir" onclick="window.location.href = 'veiculo/create'">
-                        </th>
-                    </tr>
-                </thead>
-                <?php foreach ($veiculos as $veiculo) : ?>
-                    <tr>
-                        <td width="40%"><?php echo $veiculo["descricao"] ?></td>
-                        <td width="15%"><?php echo $veiculo["placa"] ?></td>
-                        <td width="15%"><?php echo $veiculo["marca"] ?></td>
-                        <td width="20%" class='text-center'>
-                            <input type="button" class="edit" value="Editar" onclick="window.location.href = 'veiculo/edit/<?php echo $veiculo['id'] ?>'">
-                            <input type="button" class="delete" value="Excluir" onclick="window.location.href = 'veiculo/delete/<?php echo $veiculo['id'] ?>'">
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </table>
-            <p>
-            <input type="submit" class="pagination" value="<<" id="first" name="first">
+        <div>
+            <span class="block-half">
+                <h1>Cadastro de veículos</h1>
+            </span>
+            <span class="block-half right">
+                <label>Total de registros: <?php echo $count ?></label>
+            </span>
+        </div>
+
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th class="text-center">Descrição</th>
+                    <th class="text-center">Placa</th>
+                    <th class="text-center">Marca</th>
+                    <th class="action">
+                        <input type="button" class="insert" value="Incluir" onclick="window.location.href = 'veiculo/create'">
+                    </th>
+                </tr>
+            </thead>
+            <?php foreach ($data as $row) : ?>
+                <tr>
+                    <td width="40%"><?php echo $row["descricao"] ?></td>
+                    <td width="15%"><?php echo $row["placa"] ?></td>
+                    <td width="15%"><?php echo $row["marca"] ?></td>
+                    <td width="20%" class='text-center'>
+                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'veiculo/edit/<?php echo $row['id'] ?>'">
+                        <input type="button" class="delete" value="Excluir" onclick="window.location.href = 'veiculo/delete/<?php echo $row['id'] ?>'">
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </table>
+        <p>
+            <div class="tooltip">
+                <input type="submit" class="pagination" value="<<" id="first" name="first">
+                <span class="tooltiptext">Primeira página</span>
+            </div>
             <input type="submit" class="pagination" value="<" id="prior" name="prior">
+
+            <?php for ($i = 1; $i <= $numberOfPages; $i++) : ?>
+                <input type="submit" class=<?php echo ($page == $i) ? "selected-page" : "pagination"; ?> value=<?php echo $i; ?> id="page" name="page">
+            <?php endfor ?>
+
             <input type="submit" class="pagination" value=">" id="next" name="next">
             <input type="submit" class="pagination" value=">>" id="last" name="last">
-            <input type="text" value="<?php echo $offset;?>" id="offset" name="offset">
-        </div>
+
+            <input type="text" hidden value="<?php echo $offset; ?>" id="offset" name="offset">
+        </p>
     </form>
 </body>

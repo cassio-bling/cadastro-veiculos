@@ -317,7 +317,7 @@ var Yearpicker = (function() {
             this.oldValue = initialValue;
 
             year = year || initialValue || new Date().getFullYear();
-            console.log(year);
+
             if (startYear) {
 
                 if (year < startYear) {
@@ -331,12 +331,11 @@ var Yearpicker = (function() {
                 }
                 this.endYear = endYear;
             }
-            console.log(initialValue)
+
             if (isNaN(initialValue)) {
-                console.log("LALA")
                 this.year = null;
             } else {
-                console.log("LULu")
+
                 this.year = year;
             }
 

@@ -1,6 +1,9 @@
 <?php
 class Controller
 {
+    const LIMIT = 5;
+    protected $offset = 0;
+    
     var $vars = [];
     var $layout = "default";
 
@@ -36,5 +39,38 @@ class Controller
         foreach ($form as $key => $value) {
             $form[$key] = $this->secure_input($value);
         }
+    }
+
+    protected function managePagination(int $count) {
+        
+        $this->offset = 0;
+        
+        if (isset($_POST["page"])) {
+            $this->offset = ($_POST["page"] - 1) * self::LIMIT;
+        } else if (isset($_POST["prior"])) {
+            $this->offset = $_POST["offset"];
+            if ($_POST["offset"] > 0) {
+                $this->offset -= self::LIMIT;
+            }
+        } else if (isset($_POST["next"])) {
+            $this->offset = $_POST["offset"];
+            if ($_POST["offset"] + self::LIMIT < $count) {
+                $this->offset += self::LIMIT;
+            }
+        } else if (isset($_POST["last"])) {
+            $this->offset = round(floor($count / self::LIMIT) * self::LIMIT);
+            if ($count % self::LIMIT == 0) {
+                $this->offset -= self::LIMIT;
+            }
+            if ($this->offset < 0) {
+                $this->offset = 0;
+            }
+        }
+        
+        $d["offset"] = $this->offset;
+        $d["count"] = $count;
+        $d["numberOfPages"] = ceil($count / self::LIMIT);
+        $d["page"] = ceil($this->offset / self::LIMIT) + 1;
+        $this->set($d);
     }
 }

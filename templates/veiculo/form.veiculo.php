@@ -86,42 +86,12 @@
         <hr>
         <div>
             <div>
-                <span class="block-quarter">
-                    <input type="checkbox" id="arCondicionado">
-                    <label class="label-normal" for="arCondicionado">Ar condicionados</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="airBag">
-                    <label class="label-normal" for="airBag">Air Bag</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="cdPlayer">
-                    <label class="label-normal" for="cdPlayer">CD Player</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="direcaoHidraulica">
-                    <label class="label-normal" for="direcaoHidraulica">Direção hidráulica</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="vidroEletrico">
-                    <label class="label-normal" for="vidroEletrico">Vidro elétrico</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="travaEletrica">
-                    <label class="label-normal" for="travaEletrica">Trava elétrica</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="cambioAutomatico">
-                    <label class="label-normal" for="cambioAutomatico">Cambio automático</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="rodasDeLiga">
-                    <label class="label-normal" for="rodasDeLiga">Rodas de liga</label>
-                </span>
-                <span class="block-quarter">
-                    <input type="checkbox" id="alarme">
-                    <label class="label-normal" for="alarme">Alarme</label>
-                </span>
+                <?php foreach ($componentes as $componente) : ?>
+                    <span class="block-quarter">
+                        <input type="checkbox" name="componentes[]" id=<?php echo "componente:" . $componente["id"]; ?>  <?php echo $componente["checked"] == 1 ? "checked" : ""; ?> value=<?php echo $componente["id"] ?>>
+                        <label class="label-normal" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
+                    </span>
+                <?php endforeach ?>
             </div>
         </div>
         <hr>
