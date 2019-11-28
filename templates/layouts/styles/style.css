@@ -2,13 +2,12 @@
 form {
     margin: 10px;
     padding: 10px 15% 10px 15%;
-    font: 20px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font: 18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 form.grid {
     margin: 5px;
     padding: 5px 5% 10px 5%;
-    font: 20px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 div {
@@ -18,6 +17,11 @@ div {
 label {
     font-weight: bold;
     margin-left: 3px;
+}
+
+label.label-filter {
+    padding: 2px 15px 2px 15px;
+    font-size: large;
 }
 
 label.label-normal {
@@ -97,12 +101,12 @@ select:focus {
 
 input[type=submit],
 input[type=button] {
-    padding: 20px 30px 20px 30px;
+    padding: 15px 20px 15px 20px;
     border: none;
     color: #fff;
     font-size: large;
     background: grey;
-    width: 150px;
+    width: 130px;
     border-radius: 5px;
     font-weight: bold;
 }
@@ -115,20 +119,19 @@ input[type=button]:hover {
     background: darkgrey;
 }
 
-input[type=button].insert {
-    padding: 5px 5px 5px 5px;
-    width: 202px;
-    height: 50px;
-    background: green;
-}
-
-input[type=submit].selected-page,
-input[type=submit].pagination,
+input[type=button].insert,
+input[type=button].edit,
 input[type=button].delete,
-input[type=button].edit {
+input[type=submit].pagination,
+input[type=submit].selected-page,
+input[type=submit].filter {
     padding: 7px 10px 7px 10px;
     width: 100px;
     height: 40px;
+}
+
+input[type=button].insert {
+    background: green;
 }
 
 input[type=button].edit {
@@ -139,16 +142,13 @@ input[type=button].delete {
     background: red;
 }
 
-input[type=submit].pagination {
+input[type=submit].pagination,
+input[type=submit].filter {
     background: darkolivegreen;
 }
 
 input[type=submit].selected-page {
-    background: darkgreen;
-}
-
-input[type=button].insert:hover {
-    background: darkgreen;
+    background: olive;
 }
 
 input[type=button].edit:hover {
@@ -159,14 +159,16 @@ input[type=button].delete:hover {
     background: darkred;
 }
 
-input[type=submit].pagination:hover {
-    background: darkgreen;
+input[type=submit].pagination:hover,
+input[type=submit].filter:hover {
+    background: olive;
 }
 
 input[type=submit].save {
     background: green;
 }
 
+input[type=button].insert:hover,
 input[type=submit].save:hover {
     background: darkgreen;
 }
@@ -187,7 +189,6 @@ input[type="checkbox"] {
 }
 
 table {
-    font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
@@ -196,14 +197,13 @@ td,
 th {
     border: 3px solid #dddddd;
     text-align: center;
-    padding: 5px 10px;
 }
 
 th {
     background-color: darkolivegreen;
     color: white;
-    padding: 5px 15px 5px 15px;
-    font-size: larger;
+    padding: 2px 15px 2px 15px;
+    font-size: large;
 }
 
 th.action {
@@ -213,7 +213,7 @@ th.action {
 
 td {
     text-align: left;
-    padding: 5px 15px 5px 15px;
+    padding: 2px 15px 2px 15px;
 }
 
 tr:nth-child(even) {
@@ -287,6 +287,32 @@ tr:nth-child(even) {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.collapsible {
+    border-collapse: collapse;
+    border: 3px solid #dddddd;
+    text-align: center;
+    background-color: darkolivegreen;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    outline: none;
+    padding: 10px 15px 10px 15px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.active,
+.collapsible:hover {
+    background-color: olive;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
 }
 
 @media only screen and (max-width: 600px) {

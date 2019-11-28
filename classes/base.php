@@ -4,7 +4,7 @@ abstract class Base
 {
     const TABELA = "";
 
-    public function count()
+    public function count($model = null)
     {
         $conexao = Database::connect();
         $result = $conexao->query("SELECT COUNT(id) FROM " . static::TABELA);
@@ -22,16 +22,14 @@ abstract class Base
         return $result;    
     }
 
-    public function getAllPaginated(int $limit = 20, int $offset = 0)
+    public function getPaginated(int $limit = 20, int $offset = 0, $model = null)
     {
         $conexao = Database::connect();
         $query = $conexao->prepare("SELECT * FROM " . static::TABELA . " LIMIT ? OFFSET ?");
         $query->bind_param("ii", $limit, $offset);
         $query->execute();
         $result = $query->get_result();
-        // $fetch = $result->fetch_assoc();
         Database::disconnect();
-        // return $fetch;
         return $result;
     }
 

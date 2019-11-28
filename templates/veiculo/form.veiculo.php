@@ -3,14 +3,8 @@
 
 <head>
     <title>Inclusão de veículos</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "styles/style.css" ?>>
-    <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/yearpicker/yearpicker.css" ?>>
-    <script src=<?php echo WEBROOT . "templates/jquery/jquery.js" ?>></script>
-    <script src=<?php echo WEBROOT . "templates/jquery/jquery.mask.js" ?>></script>
+    <?php include(ROOT . "templates/layouts/head.php"); ?>
     <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
-    <script src=<?php echo WEBROOT . "templates/yearpicker/yearpicker.js" ?>></script>
 </head>
 
 <body>
@@ -88,7 +82,7 @@
             <div>
                 <?php foreach ($componentes as $componente) : ?>
                     <span class="block-quarter">
-                        <input type="checkbox" name="componentes[]" id=<?php echo "componente:" . $componente["id"]; ?>  <?php echo $componente["checked"] == 1 ? "checked" : ""; ?> value=<?php echo $componente["id"] ?>>
+                        <input type="checkbox" name="componentes[]" id=<?php echo "componente:" . $componente["id"]; ?> <?php echo (isset($componente["checked"]) && $componente["checked"] == 1) ? "checked" : ""; ?> value=<?php echo $componente["id"] ?>>
                         <label class="label-normal" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
                     </span>
                 <?php endforeach ?>

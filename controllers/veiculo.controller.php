@@ -6,15 +6,35 @@ require_once(ROOT . "classes/veiculo_componente.class.php");
 require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
-    const LIMIT = 5;
+    const LIMIT = 2;
 
     function index()
-    {        
+    {
         $veiculo = new Veiculo();
-        
-        $this->managePagination($veiculo->count());
 
-        $d["data"] = $veiculo->getAllPaginated(self::LIMIT, $this->offset);
+        if (isset($_POST["filter"])) {
+            $model = new VeiculoModel();
+
+            $filtros = array();
+            if (!empty(trim($_POST["filtro_descricao"]))) {
+                $model->setDescricao($_POST["filtro_descricao"]);
+                $filtros = array_merge($filtros, array("filtro_descricao" => $model->getDescricao()));
+            }
+
+            if (isset($_POST["filtro_marca"])) {
+                $model->setMarca($_POST["filtro_marca"]);
+                $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
+            }            
+
+            $d["filtro"] = $filtros;
+        } else {
+            $model = null;
+        }
+        
+        $result = $veiculo->getPaginated(self::LIMIT, $this->offset, $model);
+        $d["data"] = $result;
+        
+        $this->managePagination($veiculo->count($model));
 
         $this->set($d);
         $this->render("index");
@@ -24,15 +44,19 @@ class VeiculoController extends Controller
     {
         if (isset($_POST["cancel"])) {
             $this->redirect();
-        }        
-        else if (isset($_POST["save"])) {
+        } else if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
-            if ($veiculo->insert($this->map())) {
+            $id = $veiculo->insert($this->map());
+            if (!is_null($id)) {
+                if (isset($_POST["componentes"])) {
+                    $veiculo_componente = new VeiculoComponente();
+                    $veiculo_componente->update($id, $_POST["componentes"]);
+                }
+
                 $this->redirect();
             }
-            
-            /*TODO: tratar falha do insert*/
 
+            /*TODO: tratar falha do insert*/
         } else {
             $componente = new Componente();
             $d["componentes"] = $componente->getAll();
@@ -45,10 +69,9 @@ class VeiculoController extends Controller
     {
         if (isset($_POST["cancel"])) {
             $this->redirect();
-        }
-        else if (isset($_POST["save"])) {
-            $veiculo = new Veiculo();        
-            
+        } else if (isset($_POST["save"])) {
+            $veiculo = new Veiculo();
+
             if ($veiculo->update($this->map())) {
                 $veiculo_componente = new VeiculoComponente();
                 if (isset($_POST["componentes"])) {
@@ -56,17 +79,17 @@ class VeiculoController extends Controller
                 } else {
                     $veiculo_componente->delete($id);
                 }
-                
+
                 $this->redirect();
-            }        
+            }
         } else {
             $veiculo = new Veiculo();
-            
+
             $d["veiculo"] = $veiculo->get($id);
-            
+
             $veiculo_componente = new VeiculoComponente();
             $d["componentes"] = $veiculo_componente->get($id);
-            
+
             $this->set($d);
             $this->render("form.veiculo");
         }
@@ -74,6 +97,9 @@ class VeiculoController extends Controller
 
     function delete($id)
     {
+        $veiculo_componente = new VeiculoComponente();
+        $veiculo_componente->delete($id);
+
         $veiculo = new Veiculo();
         if ($veiculo->delete($id)) {
             $this->redirect();
@@ -83,7 +109,7 @@ class VeiculoController extends Controller
     private function map()
     {
         $model = new VeiculoModel();
-        
+
         if (isset($_POST["id"])) {
             $model->setId($_POST["id"]);
         }
@@ -102,7 +128,8 @@ class VeiculoController extends Controller
         return $model;
     }
 
-    private function redirect() {
+    private function redirect()
+    {
         return header("Location: " . WEBROOT);
     }
 }
