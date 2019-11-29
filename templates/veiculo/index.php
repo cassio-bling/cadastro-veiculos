@@ -24,12 +24,13 @@
             <div class="content">
                 <span class="block-half">
                     <label for="descricao">Descrição</label>
-                    <input type="text" id="filtro_descricao" name="filtro_descricao" maxlength="60" placeholder="Descrição do veículo" value="<?php if (isset($veiculo["filtro_descricao"])) echo $veiculo["filtro_descricao"]; ?>">
+                    <input class="filtro" type="text" id="filtro_descricao" name="filtro_descricao" maxlength="60" placeholder="Descrição do veículo" value="<?php if (isset($filtro["filtro_descricao"])) echo $filtro["filtro_descricao"]; ?>">
                 </span>
                 <span class="block-quarter">
                     <label for="marca">Marca</label>
-                    <select id="filtro_marca" name="filtro_marca" class="select-css">
+                    <select id="filtro_marca" name="filtro_marca" class="filtro select-css">
                         <option disabled selected value> -- marca -- </option>
+                        <option value="" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "") echo "selected"; ?>></option>
                         <option value="Citroen" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Citroen") echo "selected"; ?>>Citroen</option>
                         <option value="Chevrolet" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Chevrolet") echo "selected"; ?>>Chevrolet</option>
                         <option value="Fiat" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Fiat") echo "selected"; ?>>Fiat</option>
@@ -42,18 +43,20 @@
                 </span>
                 <span class="block-quarter">
                     <input type="submit" class="filter" value="Filtrar" id="filter" name="filter">
+                    <input type="button" class="clean" value="Limpar" id="clean" name="clean" onclick="return cleanFilters()">
                 </span>
             </div>
         </div>
 
-        <table class="table table-striped custab">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="text-center">Descrição</th>
-                    <th class="text-center">Placa</th>
-                    <th class="text-center">Marca</th>
+                    <th>Descrição</th>
+                    <th>Placa</th>
+                    <th>Marca</th>
                     <th class="action">
                         <input type="button" class="insert" value="Incluir" onclick="window.location.href = 'veiculo/create'">
+                        <input type="submit" class="report" value="Relatório" id="report" name="report">
                     </th>
                 </tr>
             </thead>
@@ -62,7 +65,7 @@
                     <td width="40%"><?php echo $row["descricao"] ?></td>
                     <td width="15%"><?php echo $row["placa"] ?></td>
                     <td width="15%"><?php echo $row["marca"] ?></td>
-                    <td width="20%" class='text-center'>
+                    <td width="20%">
                         <input type="button" class="edit" value="Editar" onclick="window.location.href = 'veiculo/edit/<?php echo $row['id'] ?>'">
                         <a href="veiculo/delete/<?php echo $row['id'] ?>" onclick="return confirmDelete()">
                             <input type="button" class="delete" value="Excluir">

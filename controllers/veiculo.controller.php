@@ -6,38 +6,23 @@ require_once(ROOT . "classes/veiculo_componente.class.php");
 require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
-    const LIMIT = 2;
+    const LIMIT = 5;
 
     function index()
     {
-        $veiculo = new Veiculo();
-
-        if (isset($_POST["filter"])) {
-            $model = new VeiculoModel();
-
-            $filtros = array();
-            if (!empty(trim($_POST["filtro_descricao"]))) {
-                $model->setDescricao($_POST["filtro_descricao"]);
-                $filtros = array_merge($filtros, array("filtro_descricao" => $model->getDescricao()));
-            }
-
-            if (isset($_POST["filtro_marca"])) {
-                $model->setMarca($_POST["filtro_marca"]);
-                $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
-            }            
-
-            $d["filtro"] = $filtros;
-        } else {
-            $model = null;
-        }
-        
-        $result = $veiculo->getPaginated(self::LIMIT, $this->offset, $model);
-        $d["data"] = $result;
-        
+        $model = $this->getFilterModel();
+        $veiculo = new Veiculo();        
         $this->managePagination($veiculo->count($model));
-
-        $this->set($d);
-        $this->render("index");
+                
+        if (isset($_POST["report"])) {
+            $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $model, true);
+            $this->set($d);            
+            $this->render("report.veiculo");
+        } else {
+            $d["data"] = $veiculo->getPaginated(self::LIMIT, $this->offset, $model);
+            $this->set($d);
+            $this->render("index");
+        }
     }
 
     function create()
@@ -106,6 +91,21 @@ class VeiculoController extends Controller
         }
     }
 
+    function report()
+    {
+        if (isset($_POST["cancel"])) {
+            $this->redirect();
+        } else {
+            $veiculo = new Veiculo();
+            $model = $this->getFilterModel();
+            $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $model, true);
+
+            $this->set($d);
+            $this->render("report.veiculo");
+            header("Location: " . WEBROOT . "veiculo/report");
+        }
+    }
+
     private function map()
     {
         $model = new VeiculoModel();
@@ -131,5 +131,26 @@ class VeiculoController extends Controller
     private function redirect()
     {
         return header("Location: " . WEBROOT);
+    }
+
+    private function getFilterModel()
+    {
+        $model = new VeiculoModel();
+
+        $filtros = array();
+        if (isset($_POST["filtro_descricao"]) && !empty(trim($_POST["filtro_descricao"]))) {
+            $model->setDescricao($_POST["filtro_descricao"]);
+            $filtros = array_merge($filtros, array("filtro_descricao" => $model->getDescricao()));
+        }
+
+        if (isset($_POST["filtro_marca"])) {
+            $model->setMarca($_POST["filtro_marca"]);
+            $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
+        }
+
+        $d["filtro"] = $filtros;
+        $this->set($d);
+
+        return empty($filtros) ? null : $model;
     }
 }

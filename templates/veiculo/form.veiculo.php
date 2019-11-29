@@ -21,7 +21,7 @@
             </span>
             <span class="block-quarter">
                 <label for="placa">Placa</label>
-                <input type="text" class="placa" id="placa" placeholder="Placa do veículo" name="placa" value="<?php if (isset($veiculo["placa"])) echo $veiculo["placa"]; ?>">
+                <input type="text" class="placa" id="placa" required placeholder="Placa do veículo" name="placa" value="<?php if (isset($veiculo["placa"])) echo $veiculo["placa"]; ?>">
             </span>
             <span class="block-quarter">
                 <label for="codigoRenavam">Código RENAVAM</label>
@@ -31,12 +31,12 @@
         <div class="row">
             <span class="block-small">
                 <label for="anoModelo">Ano modelo</label>
-                <input type="text" class="yearpicker" maxlength="4" autocomplete="off" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" required value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
+                <input type="number" class="yearpicker" maxlength="4" min="1920" max="2099" autocomplete="off" placeholder="Ano do modelo" id="anoModelo" name="anoModelo" required value="<?php if (isset($veiculo["anoModelo"])) echo $veiculo["anoModelo"]; ?>">
             </span>
 
             <span class="block-small">
                 <label for="anoFabricacao">Ano fabricação</label>
-                <input type="text" class="yearpicker" maxlength="4" autocomplete="off" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" required value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
+                <input type="number" class="yearpicker" maxlength="4" min="1920" max="2099" autocomplete="off" placeholder="Fabricação" id="anoFabricacao" name="anoFabricacao" required value="<?php if (isset($veiculo["anoFabricacao"])) echo $veiculo["anoFabricacao"]; ?>">
             </span>
 
             <span class="block-quarter">
@@ -83,7 +83,7 @@
                 <?php foreach ($componentes as $componente) : ?>
                     <span class="block-quarter">
                         <input type="checkbox" name="componentes[]" id=<?php echo "componente:" . $componente["id"]; ?> <?php echo (isset($componente["checked"]) && $componente["checked"] == 1) ? "checked" : ""; ?> value=<?php echo $componente["id"] ?>>
-                        <label class="label-normal" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
+                        <label class="label-checkbox" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
                     </span>
                 <?php endforeach ?>
             </div>

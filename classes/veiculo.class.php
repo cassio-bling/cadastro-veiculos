@@ -12,24 +12,20 @@ class Veiculo extends Base implements ICrud
     {
         try {
             $conexao = Database::connect();
-            $sql = "SELECT COUNT(id) as contagem FROM " . static::TABELA;
+            $sql = "SELECT COUNT(id) FROM " . static::TABELA;
 
             $filters = $this->getFilters($model);
             if (!empty($filters[0])) {
-
                 $sql .= $filters[0];
-                
                 $query = $conexao->prepare($sql);
-                
                 $query->bind_param($filters[1], ...$filters[2]);
             } else {
                 $query = $conexao->prepare($sql);
             }
 
             $query->execute();
-            $result = $query->fetch();
-            error_log(var_dump($result[0]));
-            $row = $result;
+            $result = $query->get_result();
+            $row = mysqli_fetch_array($result);
 
             return $row[0];
         } finally {
@@ -37,23 +33,19 @@ class Veiculo extends Base implements ICrud
         }
     }
 
-    public function getPaginated(int $limit = 20, int $offset = 0, $model = null)
+    public function getPaginated(int $limit = 20, int $offset = 0, $model = null, $allFields = false)
     {
         try {
             $conexao = Database::connect();
-            $sql = "SELECT id, descricao, placa, marca FROM " . static::TABELA;
+            $sql = "SELECT " . ($allFields ? "*" : "id, descricao, placa, marca") . " FROM " . static::TABELA;
 
             $filters = $this->getFilters($model);
             if (!empty($filters[0])) {
-
-                $sql .= $filters[0];
-                $sql .= " LIMIT ? OFFSET ?";
-
+                $sql .= $filters[0] . " LIMIT ? OFFSET ?";
                 $query = $conexao->prepare($sql);
                 array_push($filters[2], $limit, $offset);
                 $query->bind_param($filters[1] . "ii", ...$filters[2]);
             } else {
-
                 $sql .= " LIMIT ? OFFSET ?";
                 $query = $conexao->prepare($sql);
                 $query->bind_param("ii", $limit, $offset);
@@ -147,8 +139,8 @@ class Veiculo extends Base implements ICrud
         $filters = "";
 
         if (!empty($model->getDescricao())) {
-            $filters .= " and descricao like %?%";
-            array_push($data, $model->getDescricao());
+            $filters .= " and descricao like ?";
+            array_push($data, '%' . $model->getDescricao() . '%');
             $dataType .= "s";
         }
 
