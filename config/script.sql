@@ -46,3 +46,12 @@ INSERT INTO `componente` (descricao) VALUES
 ('Câmbio automático'),
 ('Rodas de liga'),
 ('Alarme');
+
+
+CREATE TABLE usuario (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(20) NOT NULL,  
+  PRIMARY KEY (`id`)
+);

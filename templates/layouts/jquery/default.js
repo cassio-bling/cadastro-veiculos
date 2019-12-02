@@ -35,26 +35,26 @@ $(document).ready(function() {
         year: null,
         startYear: 1920,
         endYear: 2099,
-        // }).on('input', function(event) {
-        //     this.value = RegExp(/(19[0-8][0-9]|199[0-9]|20[0-8][0-9]|209[0-9])/, this.value);
     });
 
     $('.collapsible').ready(function() {
         var coll = document.getElementsByClassName("collapsible");
 
         for (var i = 0; i < coll.length; i++) {
+            coll[i].nextElementSibling.style.display = (getCookie(String(coll[i].name)) == "true") ? "block" : "none";
             coll[i].addEventListener("click", function() {
                 this.classList.toggle("active");
                 var content = this.nextElementSibling;
                 if (content.style.display === "block") {
                     content.style.display = "none";
+                    setCookie(this.name, "", -1);
                 } else {
                     content.style.display = "block";
+                    setCookie(this.name, "true", 1);
                 }
             });
         }
     });
-
 });
 
 function validField(fieldName) {
@@ -68,31 +68,79 @@ function validField(fieldName) {
     } else {
         return true;
     }
-
-    var coll = document.getElementsByClassName("collapsible");
-
-    for (var i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
 }
-
 
 function confirmDelete() {
     return confirm("Confirmar exclusão do registro?");
 }
 
 function cleanFilters() {
-    var coll = document.getElementsByClassName("filtro");
+    var col = document.getElementsByClassName("filtro");
 
-    for (var i = 0; i < coll.length; i++) {
-        coll[i].value = "";
+    for (var i = 0; i < col.length; i++) {
+        col[i].value = "";
+        setCookie(col[i].name, "", -1);
     };
+}
+
+function saveFilters() {
+    var col = document.getElementsByClassName("filtro");
+
+    for (var i = 0; i < col.length; i++) {
+        setCookie(col[i].name, col[i].value, 1);
+    };
+}
+
+function getFilters() {
+    var col = document.getElementsByClassName("filtro");
+
+    for (var i = 0; i < col.length; i++) {
+        col[i].value = getCookie(col[i].name);
+    };
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function setOffset() {
+    console.log(document.getElementById("offset").value);
+    setCookie("veiculoOffset", document.getElementById("offset").value, 1);
+}
+
+function getOffset() {
+    console.log(document.getElementById("offset").value);
+    document.getElementById("offset").value = getCookie("veiculoOffset");
+}
+
+function refresh() {
+    setCookie("refresh", "true", 1);
+}
+
+function init() {
+    if (getCookie("refresh") == "true") {
+        document.getElementById("form").submit();
+        setCookie("refresh", "false", 1);
+    } else {
+        setCookie("refresh", "false", -1);
+    }
 }

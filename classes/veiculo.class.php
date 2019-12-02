@@ -41,12 +41,12 @@ class Veiculo extends Base implements ICrud
 
             $filters = $this->getFilters($model);
             if (!empty($filters[0])) {
-                $sql .= $filters[0] . " LIMIT ? OFFSET ?";
+                $sql .= $filters[0] . " ORDER BY id DESC LIMIT ? OFFSET ?";
                 $query = $conexao->prepare($sql);
                 array_push($filters[2], $limit, $offset);
                 $query->bind_param($filters[1] . "ii", ...$filters[2]);
             } else {
-                $sql .= " LIMIT ? OFFSET ?";
+                $sql .= " ORDER BY id DESC LIMIT ? OFFSET ?";
                 $query = $conexao->prepare($sql);
                 $query->bind_param("ii", $limit, $offset);
             }

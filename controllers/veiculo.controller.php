@@ -11,12 +11,12 @@ class VeiculoController extends Controller
     function index()
     {
         $model = $this->getFilterModel();
-        $veiculo = new Veiculo();        
+        $veiculo = new Veiculo();
         $this->managePagination($veiculo->count($model));
-                
+
         if (isset($_POST["report"])) {
             $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $model, true);
-            $this->set($d);            
+            $this->set($d);
             $this->render("report.veiculo");
         } else {
             $d["data"] = $veiculo->getPaginated(self::LIMIT, $this->offset, $model);
@@ -102,7 +102,6 @@ class VeiculoController extends Controller
 
             $this->set($d);
             $this->render("report.veiculo");
-            header("Location: " . WEBROOT . "veiculo/report");
         }
     }
 
@@ -130,7 +129,7 @@ class VeiculoController extends Controller
 
     private function redirect()
     {
-        return header("Location: " . WEBROOT);
+        return header("Location: " . WEBROOT . "veiculo/index");
     }
 
     private function getFilterModel()
@@ -138,16 +137,19 @@ class VeiculoController extends Controller
         $model = new VeiculoModel();
 
         $filtros = array();
+        
         if (isset($_POST["filtro_descricao"]) && !empty(trim($_POST["filtro_descricao"]))) {
             $model->setDescricao($_POST["filtro_descricao"]);
             $filtros = array_merge($filtros, array("filtro_descricao" => $model->getDescricao()));
+        
         }
 
         if (isset($_POST["filtro_marca"])) {
             $model->setMarca($_POST["filtro_marca"]);
             $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
+        
         }
-
+        
         $d["filtro"] = $filtros;
         $this->set($d);
 

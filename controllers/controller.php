@@ -2,8 +2,9 @@
 class Controller
 {
     const LIMIT = 10;
+    const FORM_TITLE = "";
     protected $offset = 0;
-    
+
     var $vars = [];
     var $layout = "default";
 
@@ -41,10 +42,10 @@ class Controller
         }
     }
 
-    protected function managePagination(int $count) {
-        
+    protected function managePagination(int $count)
+    {
         $this->offset = 0;
-        
+
         if (isset($_POST["page"])) {
             $this->offset = ($_POST["page"] - 1) * static::LIMIT;
         } else if (isset($_POST["prior"])) {
@@ -66,7 +67,7 @@ class Controller
                 $this->offset = 0;
             }
         }
-        
+
         $d["offset"] = $this->offset;
         $d["count"] = $count;
         $d["numberOfPages"] = ceil($count / static::LIMIT);

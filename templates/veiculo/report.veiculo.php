@@ -3,7 +3,6 @@
 
 <head>
     <title>Relatório de veículos</title>
-    <?php include(ROOT . "templates/layouts/head.php"); ?>
     <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
     <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/layouts/styles/print.css" ?>>
 </head>

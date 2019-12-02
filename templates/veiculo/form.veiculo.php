@@ -3,7 +3,6 @@
 
 <head>
     <title>Inclusão de veículos</title>
-    <?php include(ROOT . "templates/layouts/head.php"); ?>
     <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
 </head>
 

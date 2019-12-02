@@ -2,13 +2,12 @@
 
 class Router
 {
-
     static public function parse($url, $request)
     {
         $url = trim($url);
-
-        if ($url == "/" . basename(__DIR__) . "/") {
-            $request->controller = "veiculo";
+                
+        if ($url == WEBROOT) {
+            $request->controller = "usuario";
             $request->action = "index";
             $request->params = [];
         } else {

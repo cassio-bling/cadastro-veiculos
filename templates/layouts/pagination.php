@@ -3,6 +3,7 @@
         <input type="submit" class="pagination" value="<<" id="first" name="first">
         <span class="tooltiptext">Primeira página</span>
     </div>
+
     <input type="submit" class="pagination" value="<" id="prior" name="prior">
 
     <?php for ($i = 1; $i <= $numberOfPages; $i++) : ?>

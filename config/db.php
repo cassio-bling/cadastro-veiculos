@@ -1,9 +1,9 @@
 <?php
 
-define('BD_SERVIDOR','localhost');
-define('BD_USUARIO','phpmyadmin');
-define('BD_SENHA','DarkKnight99*');
-define('BD_BANCO','treinamento');
+define('BD_SERVIDOR', 'localhost');
+define('BD_USUARIO', 'phpmyadmin');
+define('BD_SENHA', 'DarkKnight99*');
+define('BD_BANCO', 'treinamento');
 
 class Database
 {
@@ -24,7 +24,7 @@ class Database
                 die($e->getMessage());
             }
         }
-        
+
         return self::$conexao;
     }
 

@@ -1,38 +1,24 @@
 <!doctype html>
 
 <head>
-    <title>MVC Veículo</title>    
+    <title>MVC Veículo</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <style>
-        body {
-            padding-top: 5rem;
-        }
+    <script src=<?php echo WEBROOT . "templates/layouts/jquery/jquery.js" ?>></script>
+    <script src=<?php echo WEBROOT . "templates/layouts/jquery/jquery.mask.js" ?>></script>
+    <script src=<?php echo WEBROOT . "templates/layouts/yearpicker/yearpicker.js" ?>></script>
+    <script src=<?php echo WEBROOT . "templates/layouts/jquery/default.js" ?>></script>
 
-        .starter-template {
-            padding: 3rem 1.5rem;
-            text-align: center;
-        }
-    </style> -->
+    <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/layouts/styles/style.css" ?>>
+    <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/layouts/yearpicker/yearpicker.css" ?>>
 </head>
 
 <body>
-    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Home<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
-
     <main role="main" class="container">
-
         <div>
             <?php echo $content_for_layout; ?>
         </div>
-
     </main>
 </body>
 

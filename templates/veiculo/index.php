@@ -2,15 +2,15 @@
 <html lang="pt-br">
 
 <head>
-    <?php include(ROOT . "templates/layouts/head.php"); ?>
     <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
 </head>
 
 <body>
-    <form class="grid" method="post">
+
+    <form class="grid" method="post" id="form">
         <div>
             <span class="block-half">
-                <h1>Cadastro de veículos <? echo $filtro["filtro_marca"] ?></h1>
+                <h1>Cadastro de veículos</h1>
             </span>
             <span class="block-half right">
                 <label>Total de registros: <?php echo $count ?></label>
@@ -18,31 +18,31 @@
         </div>
 
         <div>
-            <button type="button" class="collapsible">
+            <button type="button" class="collapsible" name="botaoFiltros">
                 <label class="label-filter">Filtros</label>
             </button>
             <div class="content">
                 <span class="block-half">
                     <label for="descricao">Descrição</label>
-                    <input class="filtro" type="text" id="filtro_descricao" name="filtro_descricao" maxlength="60" placeholder="Descrição do veículo" value="<?php if (isset($filtro["filtro_descricao"])) echo $filtro["filtro_descricao"]; ?>">
+                    <input class="filtro" type="text" id="filtro_descricao" name="filtro_descricao" maxlength="60" placeholder="Descrição do veículo">
                 </span>
                 <span class="block-quarter">
                     <label for="marca">Marca</label>
                     <select id="filtro_marca" name="filtro_marca" class="filtro select-css">
                         <option disabled selected value> -- marca -- </option>
-                        <option value="" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "") echo "selected"; ?>></option>
-                        <option value="Citroen" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Citroen") echo "selected"; ?>>Citroen</option>
-                        <option value="Chevrolet" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Chevrolet") echo "selected"; ?>>Chevrolet</option>
-                        <option value="Fiat" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Fiat") echo "selected"; ?>>Fiat</option>
-                        <option value="Ford" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Ford") echo "selected"; ?>>Ford</option>
-                        <option value="Honda" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Honda") echo "selected"; ?>>Honda</option>
-                        <option value="Renault" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Renault") echo "selected"; ?>>Renault</option>
-                        <option value="Toyota" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Toyota") echo "selected"; ?>>Toyota</option>
-                        <option value="Volkswagen" <?php if (isset($filtro["filtro_marca"]) && $filtro["filtro_marca"] == "Volkswagen") echo "selected"; ?>>Volkswagen</option>
+                        <option value=""></option>
+                        <option value="Citroen">Citroen</option>
+                        <option value="Chevrolet">Chevrolet</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Renault">Renault</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Volkswagen">Volkswagen</option>
                     </select>
                 </span>
                 <span class="block-quarter">
-                    <input type="submit" class="filter" value="Filtrar" id="filter" name="filter">
+                    <input type="submit" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
                     <input type="button" class="clean" value="Limpar" id="clean" name="clean" onclick="return cleanFilters()">
                 </span>
             </div>
@@ -55,8 +55,9 @@
                     <th>Placa</th>
                     <th>Marca</th>
                     <th class="action">
-                        <input type="button" class="insert" value="Incluir" onclick="window.location.href = 'veiculo/create'">
+                        <input type="button" class="insert" value="Incluir" onclick="window.location.href = create()">
                         <input type="submit" class="report" value="Relatório" id="report" name="report">
+                        <!-- <input type="button" class="report" value="Relatório" onclick="window.location.href = report()"> -->
                     </th>
                 </tr>
             </thead>
@@ -66,8 +67,8 @@
                     <td width="15%"><?php echo $row["placa"] ?></td>
                     <td width="15%"><?php echo $row["marca"] ?></td>
                     <td width="20%">
-                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'veiculo/edit/<?php echo $row['id'] ?>'">
-                        <a href="veiculo/delete/<?php echo $row['id'] ?>" onclick="return confirmDelete()">
+                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'edit/<?php echo $row['id'] ?>'">
+                        <a href="delete/<?php echo $row['id'] ?>" onclick="return confirmDelete()">
                             <input type="button" class="delete" value="Excluir">
                         </a>
                     </td>
@@ -77,3 +78,8 @@
         <?php include(ROOT . "templates/layouts/pagination.php"); ?>
     </form>
 </body>
+
+<script>
+    getFilters();
+    init();
+</script>

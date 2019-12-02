@@ -74,6 +74,7 @@ input[type=datetime],
 input[type=number],
 input[type=search],
 input[type=time],
+input[type=password],
 select {
     width: 100%;
     padding: 10px 20px;
@@ -94,6 +95,7 @@ input[type=search]:focus,
 input[type=time]:focus,
 input[type=url]:focus,
 input[type=email]:focus,
+input[type=password]:focus,
 textarea:focus,
 select:focus {
     border: 3px solid green;
@@ -145,7 +147,8 @@ input[type=button].delete {
 }
 
 input[type=button].print,
-input[type=submit].report {
+input[type=submit].report,
+input[type=button].signup {
     background: royalblue;
 }
 
@@ -167,7 +170,8 @@ input[type=button].delete:hover {
 }
 
 input[type=button].print:hover,
-input[type=submit].report:hover {
+input[type=submit].report:hover,
+input[type=button].signup:hover {
     background: dodgerblue;
 }
 
@@ -176,12 +180,14 @@ input[type=submit].filter:hover {
     background: olive;
 }
 
-input[type=submit].save {
+input[type=submit].save,
+input[type=button].login {
     background: green;
 }
 
 input[type=button].insert:hover,
-input[type=submit].save:hover {
+input[type=submit].save:hover,
+input[type=button].login:hover {
     background: darkgreen;
 }
 
