@@ -4,7 +4,6 @@ require_once("base.model.php");
 
 class VeiculoModel extends BaseModel
 {
-
     private $descricao;
     private $placa;
     private $codigoRenavam;
@@ -15,6 +14,7 @@ class VeiculoModel extends BaseModel
     private $marca;
     private $preco;
     private $precoFipe;
+    private $idUsuario;
 
     //Setters    
     public function setDescricao($descricao)
@@ -59,6 +59,10 @@ class VeiculoModel extends BaseModel
     {
         $this->precoFipe = $precoFipe;
     }
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
 
     //Getters    
     public function getDescricao()
@@ -100,5 +104,9 @@ class VeiculoModel extends BaseModel
     public function getPrecoFipe()
     {
         return $this->precoFipe;
+    }
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 }

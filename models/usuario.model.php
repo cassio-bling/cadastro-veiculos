@@ -4,7 +4,6 @@ require_once("base.model.php");
 
 class UsuarioModel extends BaseModel
 {
-
     private $nome;
     private $email;
     private $senha;

@@ -6,7 +6,7 @@ require_once(ROOT . "classes/veiculo_componente.class.php");
 require_once(ROOT . "models/veiculo.model.php");
 class VeiculoController extends Controller
 {
-    const LIMIT = 5;
+    const LIMIT = 10;
 
     function index()
     {
@@ -137,19 +137,17 @@ class VeiculoController extends Controller
         $model = new VeiculoModel();
 
         $filtros = array();
-        
+
         if (isset($_POST["filtro_descricao"]) && !empty(trim($_POST["filtro_descricao"]))) {
             $model->setDescricao($_POST["filtro_descricao"]);
             $filtros = array_merge($filtros, array("filtro_descricao" => $model->getDescricao()));
-        
         }
 
         if (isset($_POST["filtro_marca"])) {
             $model->setMarca($_POST["filtro_marca"]);
             $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
-        
         }
-        
+
         $d["filtro"] = $filtros;
         $this->set($d);
 

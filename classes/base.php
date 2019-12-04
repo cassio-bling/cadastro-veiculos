@@ -6,52 +6,67 @@ abstract class Base
 
     public function count($model = null)
     {
-        $conexao = Database::connect();
-        $result = $conexao->query("SELECT COUNT(id) FROM " . static::TABELA);
-        $row = $result->fetch_row();
-        
-        Database::disconnect();
-        return $row[0];
+        try {
+            $conexao = Database::connect();
+            $result = $conexao->query("SELECT COUNT(id) FROM " . static::TABELA);
+            $row = $result->fetch_row();
+            return $row[0];
+        } finally {
+            Database::disconnect();
+        }
     }
 
     public function getAll()
     {
-        $conexao = Database::connect();
-        $result = $conexao->query("SELECT * FROM " . static::TABELA);
-        Database::disconnect();
-        return $result;    
+        try {
+            $conexao = Database::connect();
+            $result = $conexao->query("SELECT * FROM " . static::TABELA);
+            return $result;
+        } finally {
+            Database::disconnect();
+        }
     }
 
     public function getPaginated(int $limit = 20, int $offset = 0, $model = null)
     {
-        $conexao = Database::connect();
-        $query = $conexao->prepare("SELECT * FROM " . static::TABELA . " LIMIT ? OFFSET ?");
-        $query->bind_param("ii", $limit, $offset);
-        $query->execute();
-        $result = $query->get_result();
-        Database::disconnect();
-        return $result;
+        try {
+            $conexao = Database::connect();
+            $query = $conexao->prepare("SELECT * FROM " . static::TABELA . " LIMIT ? OFFSET ?");
+            $query->bind_param("ii", $limit, $offset);
+            $query->execute();
+            $result = $query->get_result();
+
+            return $result;
+        } finally {
+            Database::disconnect();
+        }
     }
 
     public function get(int $id)
     {
-        $conexao = Database::connect();
-        $query = $conexao->prepare("SELECT * FROM " . static::TABELA . " WHERE id = ?");
-        $query->bind_param("i", $id);
-        $query->execute();
-        $result = $query->get_result();
-        $fetch = $result->fetch_assoc();
-        Database::disconnect();
-        return $fetch;
+        try {
+            $conexao = Database::connect();
+            $query = $conexao->prepare("SELECT * FROM " . static::TABELA . " WHERE id = ?");
+            $query->bind_param("i", $id);
+            $query->execute();
+            $result = $query->get_result();
+            $fetch = $result->fetch_assoc();
+            return $fetch;
+        } finally {
+            Database::disconnect();
+        }
     }
 
     public function delete(int $id)
     {
-        $conexao = Database::connect();
-        $query = $conexao->prepare("DELETE FROM " . static::TABELA . " WHERE id = ?");
-        $query->bind_param("i", $id);
-        $comando = $query->execute() == TRUE;
-        Database::disconnect();
-        return $comando;
+        try {
+            $conexao = Database::connect();
+            $query = $conexao->prepare("DELETE FROM " . static::TABELA . " WHERE id = ?");
+            $query->bind_param("i", $id);
+            $comando = $query->execute() == TRUE;
+            return $comando;
+        } finally {
+            Database::disconnect();
+        }
     }
 }

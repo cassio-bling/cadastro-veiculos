@@ -5,6 +5,7 @@
 </head>
 
 <body>
+    <?php include(ROOT . "templates/layouts/init.php"); ?>
     <form class="grid" method="post" id="form">
         <div align="center">
             <h1>Sistema de veículos</h1>
@@ -24,8 +25,8 @@
             </p>
             <div>
                 <span class="block-half">
-                    <input type="button" class="login" value="Login" onclick="window.location.href = 'veiculo/index'">
-                    <input type="button" class="signup" value="Cadastrar" onclick="window.location.href = 'usuario/create'" >
+                    <input type="submit" class="login" value="Login" id="login" name="login" onclick="validateForm()">
+                    <input type="button" class="signup" value="Cadastrar" onclick="window.location.href = 'usuario/create'">
                 </span>
             </div>
         </div>

@@ -74,4 +74,8 @@ class Controller
         $d["page"] = ceil($this->offset / static::LIMIT) + 1;
         $this->set($d);
     }
+
+    public function phpAlert($msg) {
+        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+    }
 }

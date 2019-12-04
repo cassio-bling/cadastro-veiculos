@@ -8,6 +8,40 @@ class Usuario extends Base implements ICrud
 
     const TABELA = "usuario";
 
+    public function check($email)
+    {
+        try {
+            $sql = "SELECT COUNT(id) FROM " . self::TABELA . " WHERE email = ?";
+
+            $conexao = Database::connect();
+            $comando = $conexao->prepare($sql);
+            $comando->bind_param("s", $email);
+
+            $comando->execute();
+            $result = $comando->get_result();
+            $row = mysqli_fetch_array($result);
+
+            return $row[0];
+        } finally {
+            Database::disconnect();
+        }
+    }
+
+    public function login($email, $senha)
+    {
+        try {
+            $conexao = Database::connect();
+            $query = $conexao->prepare("SELECT * FROM " . self::TABELA . " WHERE email = ? and senha = ?");
+            $query->bind_param("ss", $email, $senha);
+            $query->execute();
+            $result = $query->get_result();
+            $fetch = $result->fetch_assoc();
+            return $fetch;
+        } finally {
+            Database::disconnect();
+        }
+    }
+
     public function insert($model)
     {
         try {
@@ -15,7 +49,6 @@ class Usuario extends Base implements ICrud
 
             $params = $this->parse($model);
             $conexao = Database::connect();
-            $conexao->insert_id;
             $comando = $conexao->prepare($sql);
             $comando->bind_param("sss", ...$params);
 

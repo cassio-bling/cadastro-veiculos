@@ -55,7 +55,42 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('.required').ready(function() {
+        var col = document.getElementsByClassName("required");
+
+        for (var i = 0; i < col.length; i++) {
+            col[i].nextElementSibling.style.display = (getCookie(String(coll[i].name)) == "true") ? "block" : "none";
+            col[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                    setCookie(this.name, "", -1);
+                } else {
+                    content.style.display = "block";
+                    setCookie(this.name, "true", 1);
+                }
+            });
+        }
+    });
 });
+
+function validateForm() {
+    var col = document.getElementById("form").querySelectorAll("[required]");
+    var valid = true;
+
+    for (var i = 0; i < col.length; i++) {
+        valid &= validField(col[i].name);
+    }
+
+    return valid;
+}
+
+/*
+if (valid) {
+    alert("Registro criado com sucesso.");
+}*/
 
 function validField(fieldName) {
     var field = document.getElementById(fieldName);
@@ -123,12 +158,10 @@ function getCookie(cname) {
 }
 
 function setOffset() {
-    console.log(document.getElementById("offset").value);
     setCookie("veiculoOffset", document.getElementById("offset").value, 1);
 }
 
 function getOffset() {
-    console.log(document.getElementById("offset").value);
     document.getElementById("offset").value = getCookie("veiculoOffset");
 }
 

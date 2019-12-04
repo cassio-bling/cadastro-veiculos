@@ -6,11 +6,12 @@
 </head>
 
 <body>
-
-    <form class="grid" method="post" id="form">
+    <?php include(ROOT . "templates/layouts/login.php"); ?>
+    <form method="post" id="form">
+        <?php include(ROOT . "templates/layouts/menu.php"); ?>
         <div>
             <span class="block-half">
-                <h1>Cadastro de veículos</h1>
+                <h2>Cadastro de veículos</h2>
             </span>
             <span class="block-half right">
                 <label>Total de registros: <?php echo $count ?></label>
