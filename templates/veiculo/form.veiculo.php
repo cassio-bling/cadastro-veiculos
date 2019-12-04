@@ -3,6 +3,7 @@
 
 <head>
     <title>Inclusão de veículos</title>
+    <!-- <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script> -->
 </head>
 
 <body>
@@ -94,7 +95,8 @@
             <div>
                 <span class="block-half">
                     <input type="submit" class="save" value="Salvar" name="save" onclick="validateForm()">
-                    <input type="submit" class="cancel" value="Cancelar" name="cancel" formnovalidate>
+                    <input type="button" class="cancel" value="Cancelar" name="cancel" formnovalidate onclick="redirect()">
+                    <!-- <input type="button" class="cancel" value="Cancelar" name="cancel" formnovalidate onclick="window.location.href = '<?php echo WEBROOT . 'veiculo/index';?>'"> -->
                 </span>
             </div>
         </div>

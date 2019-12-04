@@ -68,7 +68,7 @@
                     <td width="15%"><?php echo $row["placa"] ?></td>
                     <td width="15%"><?php echo $row["marca"] ?></td>
                     <td width="20%">
-                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'edit/<?php echo $row['id'] ?>'">
+                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'edit/<?php echo $row['id'] ?>'">                        
                         <a href="delete/<?php echo $row['id'] ?>" onclick="return confirmDelete()">
                             <input type="button" class="delete" value="Excluir">
                         </a>

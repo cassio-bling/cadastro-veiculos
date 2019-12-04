@@ -1,8 +1,9 @@
 CREATE DATABASE treinamento DEFAULT CHARACTER SET utf8;
+
 USE treinamento;
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senha` varchar(20) NOT NULL,  
@@ -13,18 +14,18 @@ INSERT INTO `usuario` (`nome`, `email`, `senha`) VALUES
 ('master', 'master@bling', '123');
 
 CREATE TABLE `veiculo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(60) NOT NULL,
   `placa` varchar(7) NOT NULL,
   `codigoRenavam` varchar(11) NOT NULL,
-  `anoModelo` int(4) NOT NULL,
-  `anoFabricacao` int(4) NOT NULL,
+  `anoModelo` smallint NOT NULL,
+  `anoFabricacao` smallint NOT NULL,
   `cor` varchar(20) NOT NULL,
-  `km` int(6) NOT NULL,
+  `km` int NOT NULL,
   `marca` varchar(20) NOT NULL,
-  `preco` decimal(8,2) NOT NULL,
-  `precoFipe` decimal(8,2) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
+  `preco` decimal(8, 2) NOT NULL,
+  `precoFipe` decimal(8, 2) NOT NULL,
+  `idUsuario` int NOT NULL,
   `dataCriacao` datetime DEFAULT CURRENT_TIMESTAMP,
   `dataAlteracao` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -67,7 +68,7 @@ INSERT INTO `veiculo` (`descricao`, `placa`, `codigoRenavam`, `anoModelo`, `anoF
 ('EX',          'ABC1234', '123456789', 2011, 2010, 'Branca', 0, 'Ford', 50000, 55000, 1);
 
 CREATE TABLE `componente` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(60) NOT NULL,
   `dataCriacao` datetime DEFAULT CURRENT_TIMESTAMP,
   `dataAlteracao` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -86,8 +87,8 @@ INSERT INTO `componente` (`descricao`) VALUES
 ('Alarme');
 
 CREATE TABLE `veiculo_componente` (
-  `idVeiculo` int(11) NOT NULL,
-  `idComponente` int(11) NOT NULL,
+  `idVeiculo` int NOT NULL,
+  `idComponente` int NOT NULL,
   `dataCriacao` datetime DEFAULT CURRENT_TIMESTAMP,
   `dataAlteracao` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`idVeiculo`) REFERENCES `veiculo`(`id`),

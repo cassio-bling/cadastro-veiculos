@@ -12,3 +12,11 @@ function create() {
 //     //form.submit();
 //     return '';
 // }
+
+function redirect() {
+    return "window.location.href = '<?php echo WEBROOT . 'veiculo/index';?>'";
+}
+
+function load() {
+    document.getElementById("descricao").value = "<?php if (isset($veiculo['id'])) echo $veiculo['id']; ?>";
+}

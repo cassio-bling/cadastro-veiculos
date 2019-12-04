@@ -27,9 +27,7 @@ class VeiculoController extends Controller
 
     function create()
     {
-        if (isset($_POST["cancel"])) {
-            $this->redirect();
-        } else if (isset($_POST["save"])) {
+        if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
             $id = $veiculo->insert($this->map());
             if (!is_null($id)) {
@@ -52,9 +50,7 @@ class VeiculoController extends Controller
 
     function edit($id)
     {
-        if (isset($_POST["cancel"])) {
-            $this->redirect();
-        } else if (isset($_POST["save"])) {
+        if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
 
             if ($veiculo->update($this->map())) {

@@ -1,5 +1,11 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
+require_once("query.class.php");
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 abstract class Base
 {
     const TABELA = "";
@@ -68,5 +74,24 @@ abstract class Base
         } finally {
             Database::disconnect();
         }
+    }
+
+    protected function setUser(Query $query)
+    {
+        $query->sql .= " WHERE idUsuario = ?";
+        $query->types .= "i";
+        array_push($query->params, $_SESSION["idUsuario"]);
+    }
+
+    protected function setOrder(Query $query)
+    {
+        $query->sql .= " ORDER BY id";
+    }
+
+    protected function setPagination(Query $query, int $limit, int $offset)
+    {
+        $query->sql .= " DESC LIMIT ? OFFSET ?";
+        $query->types .= "ii";
+        array_push($query->params, $limit, $offset);
     }
 }
