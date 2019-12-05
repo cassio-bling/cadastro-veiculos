@@ -3,7 +3,6 @@
 
 <head>
     <title>Relatório de veículos</title>
-    <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script>
     <link rel="stylesheet" type="text/css" href=<?php echo WEBROOT . "templates/layouts/styles/print.css" ?>>
 </head>
 
@@ -49,7 +48,7 @@
             <div>
                 <span class="block-half">
                     <input type="button" class="print" value="Imprimir" name="print" onclick="javascript:window.print()">
-                    <input type="submit" class="cancel" value="Fechar" name="cancel">
+                    <input type="button" class="cancel" value="Fechar" name="cancel" formnovalidate onclick="window.location.href = '<?php echo WEBROOT . 'veiculo/index'; ?>'">
                 </span>
             </div>
         </p>

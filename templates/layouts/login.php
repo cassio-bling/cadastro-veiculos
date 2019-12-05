@@ -6,7 +6,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 if (!isset($_SESSION["nomeUsuario"])) {
     header("Location: " . WEBROOT);    
 } else if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 300)) {
-    error_log("LOLOLO");
     session_unset();
     session_destroy();
     echo "<script type='text/javascript'>alert('Sessão expirou!'); window.location=" . WEBROOT . ";</script>";

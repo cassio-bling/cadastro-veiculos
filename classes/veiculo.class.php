@@ -15,7 +15,7 @@ class Veiculo extends Base implements ICrud
 
             $query = new Query();
             $query->sql = "SELECT COUNT(id) FROM " . static::TABELA;
-            $this->setUser($query);
+            $this->setUser($query, $model->getIdUsuario());
             $this->setFilters($query, $model);
             $this->setOrder($query);
 
@@ -39,7 +39,7 @@ class Veiculo extends Base implements ICrud
 
             $query = new Query();
             $query->sql = "SELECT " . ($allFields ? "*" : "id, descricao, placa, marca") . " FROM " . static::TABELA;
-            $this->setUser($query);
+            $this->setUser($query, $model->getIdUsuario());
             $this->setFilters($query, $model);
             $this->setOrder($query);
             $this->setPagination($query, $limit, $offset);
@@ -82,8 +82,8 @@ class Veiculo extends Base implements ICrud
             $conexao = Database::connect();
 
             $query = new Query();
-            $query->sql = "UPDATE " . self::TABELA . " SET descricao = ?, placa = ?, codigoRenavam = ?, anoModelo = ?, anoFabricacao = ?, cor = ?, km = ?, marca = ?, preco = ?, precoFipe = ? idUsuario = ? WHERE id = ?";
-            $query->types = "sssiisisddi";
+            $query->sql = "UPDATE " . self::TABELA . " SET descricao = ?, placa = ?, codigoRenavam = ?, anoModelo = ?, anoFabricacao = ?, cor = ?, km = ?, marca = ?, preco = ?, precoFipe = ?, idUsuario = ? WHERE id = ?";
+            $query->types = "sssiisisddii";
             $query->params = $this->parse($model);
             
             $statment = $conexao->prepare($query->sql);
@@ -111,7 +111,7 @@ class Veiculo extends Base implements ICrud
             $model->getMarca(),
             $model->getPreco(),
             $model->getPrecoFipe(),
-            $_SESSION["idUsuario"]
+            $model->getIdUsuario()
         );
 
         if (!empty($model->getId())) {

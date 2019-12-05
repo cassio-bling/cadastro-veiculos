@@ -39,10 +39,12 @@ class UsuarioController extends Controller
     {
         $usuario = new Usuario();
         $login = $usuario->login($_POST["email"], $_POST["senha"]);
-        if (!empty($login["nome"])) {
-            session_unset();
+        if (!empty($login["nome"])) {            
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+                session_unset();
+            }
 
-            session_start();
             $_SESSION["idUsuario"] = $login["id"];
             $_SESSION["nomeUsuario"] = $login["nome"];
 

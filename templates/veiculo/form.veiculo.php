@@ -3,13 +3,12 @@
 
 <head>
     <title>Inclusão de veículos</title>
-    <!-- <script src=<?php echo WEBROOT . "templates/veiculo/form.veiculo.js" ?>></script> -->
 </head>
 
 <body>
-    <?php include(ROOT . "templates/layouts/login.php"); ?>
+    <?php include ROOT . "templates/layouts/login.php"; ?>
     <form name="veiculo" method="post" action="" id="form">
-        <?php include(ROOT . "templates/layouts/menu.php"); ?>
+        <?php include ROOT . "templates/layouts/menu.php"; ?>
         <div class="cadastro">
             <h3 class="page-header">Dados cadastrais</h3>
             <hr>
@@ -95,8 +94,7 @@
             <div>
                 <span class="block-half">
                     <input type="submit" class="save" value="Salvar" name="save" onclick="validateForm()">
-                    <input type="button" class="cancel" value="Cancelar" name="cancel" formnovalidate onclick="redirect()">
-                    <!-- <input type="button" class="cancel" value="Cancelar" name="cancel" formnovalidate onclick="window.location.href = '<?php echo WEBROOT . 'veiculo/index';?>'"> -->
+                    <input type="button" class="cancel" value="Cancelar" name="cancel" formnovalidate onclick="window.location.href = '<?php echo WEBROOT . 'veiculo/index'; ?>'">
                 </span>
             </div>
         </div>

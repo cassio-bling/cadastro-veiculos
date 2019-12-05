@@ -1,11 +1,11 @@
 <?php
 
 class Router
-{   
+{
     static public function parse($url, $request)
     {
         $url = trim($url);
-                
+
         if ($url == WEBROOT) {
             $request->controller = "usuario";
             $request->action = "index";

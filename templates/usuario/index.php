@@ -12,20 +12,20 @@
             <div class="row">
                 <span class="block-quarter" align="left">
                     <label for="email">Email</label>
-                    <input type="text" id="email" required maxlength="50" placeholder="Email" name="email" autocomplete="off">
+                    <input type="text" id="email" required maxlength="50" placeholder="Email" name="email" autocomplete="on">
                 </span>
             </div>
             </p>
             <div class="row">
                 <span class="block-quarter" align="left">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" required placeholder="Senha" name="senha" autocomplete="off">
+                    <input type="password" id="senha" required placeholder="Senha" name="senha" autocomplete="on">
                 </span>
             </div>
             </p>
             <div>
                 <span class="block-half">
-                    <input type="submit" class="login" value="Login" id="login" name="login" onclick="validateForm()">
+                    <input type="submit" class="login" value="Login" id="login" name="login" onclick="validateForm(); removeCookies();">
                     <input type="button" class="signup" value="Cadastrar" onclick="window.location.href = 'usuario/create'">
                 </span>
             </div>

@@ -6,9 +6,9 @@
 </head>
 
 <body>
-    <?php include(ROOT . "templates/layouts/login.php"); ?>
+    <?php include ROOT . "templates/layouts/login.php";?>
     <form method="post" id="form">
-        <?php include(ROOT . "templates/layouts/menu.php"); ?>
+        <?php include ROOT . "templates/layouts/menu.php";?>
         <div>
             <span class="block-half">
                 <h2>Cadastro de veículos</h2>
@@ -44,7 +44,7 @@
                 </span>
                 <span class="block-quarter">
                     <input type="submit" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
-                    <input type="button" class="clean" value="Limpar" id="clean" name="clean" onclick="return cleanFilters()">
+                    <input type="submit" class="clear" value="Limpar" id="filter" name="filter" onclick="return cleanFilters()">
                 </span>
             </div>
         </div>
@@ -56,31 +56,29 @@
                     <th>Placa</th>
                     <th>Marca</th>
                     <th class="action">
-                        <input type="button" class="insert" value="Incluir" onclick="window.location.href = create()">
-                        <input type="submit" class="report" value="Relatório" id="report" name="report">
-                        <!-- <input type="button" class="report" value="Relatório" onclick="window.location.href = report()"> -->
+                        <input type="button" class="insert" value="Incluir" onclick="window.location.href = 'create'">
+                        <input type="button" class="report" value="Relatório" onclick="window.location.href = 'report'">
                     </th>
                 </tr>
             </thead>
-            <?php foreach ($data as $row) : ?>
+            <?php foreach ($data as $row): ?>
                 <tr>
                     <td width="40%"><?php echo $row["descricao"] ?></td>
                     <td width="15%"><?php echo $row["placa"] ?></td>
                     <td width="15%"><?php echo $row["marca"] ?></td>
                     <td width="20%">
-                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'edit/<?php echo $row['id'] ?>'">                        
+                        <input type="button" class="edit" value="Editar" onclick="window.location.href = 'edit/<?php echo $row['id'] ?>'">
                         <a href="delete/<?php echo $row['id'] ?>" onclick="return confirmDelete()">
                             <input type="button" class="delete" value="Excluir">
                         </a>
                     </td>
                 </tr>
-            <?php endforeach ?>
+            <?php endforeach?>
         </table>
-        <?php include(ROOT . "templates/layouts/pagination.php"); ?>
+        <?php include ROOT . "templates/layouts/pagination.php";?>
     </form>
 </body>
 
 <script>
     getFilters();
-    init();
 </script>

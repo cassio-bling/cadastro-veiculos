@@ -2,10 +2,6 @@
 header('Content-Type: text/html; charset=UTF-8');
 require_once("query.class.php");
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
 abstract class Base
 {
     const TABELA = "";
@@ -76,11 +72,11 @@ abstract class Base
         }
     }
 
-    protected function setUser(Query $query)
+    protected function setUser(Query $query, int $idUsuario)
     {
         $query->sql .= " WHERE idUsuario = ?";
         $query->types .= "i";
-        array_push($query->params, $_SESSION["idUsuario"]);
+        array_push($query->params, $idUsuario);
     }
 
     protected function setOrder(Query $query)

@@ -1,31 +1,30 @@
 <?php
 
-require_once(ROOT . "classes/veiculo.class.php");
-require_once(ROOT . "classes/componente.class.php");
-require_once(ROOT . "classes/veiculo_componente.class.php");
-require_once(ROOT . "models/veiculo.model.php");
+require_once ROOT . "classes/veiculo.class.php";
+require_once ROOT . "classes/componente.class.php";
+require_once ROOT . "classes/veiculo_componente.class.php";
+require_once ROOT . "models/veiculo.model.php";
+require_once ROOT . "templates/layouts/session.php";
+
 class VeiculoController extends Controller
 {
     const LIMIT = 10;
 
-    function index()
-    {
-        $model = $this->getFilterModel();
-        $veiculo = new Veiculo();
-        $this->managePagination($veiculo->count($model));
-
-        if (isset($_POST["report"])) {
-            $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $model, true);
-            $this->set($d);
-            $this->render("report.veiculo");
-        } else {
-            $d["data"] = $veiculo->getPaginated(self::LIMIT, $this->offset, $model);
-            $this->set($d);
-            $this->render("index");
+    public function index()
+    {        
+        if (!isset($_SESSION["filtros"]) || isset($_POST["filter"])) {
+            $this->setFilters();    
         }
+        
+        $veiculo = new Veiculo();
+        $_SESSION["count"] = $veiculo->count($_SESSION["filtros"]);
+        $this->managePagination($_SESSION["count"]);
+        $d["data"] = $veiculo->getPaginated(self::LIMIT, $this->offset, $_SESSION["filtros"]);
+        $this->set($d);
+        $this->render("index");
     }
 
-    function create()
+    public function create()
     {
         if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
@@ -48,7 +47,7 @@ class VeiculoController extends Controller
         }
     }
 
-    function edit($id)
+    public function edit($id)
     {
         if (isset($_POST["save"])) {
             $veiculo = new Veiculo();
@@ -76,7 +75,7 @@ class VeiculoController extends Controller
         }
     }
 
-    function delete($id)
+    public function delete($id)
     {
         $veiculo_componente = new VeiculoComponente();
         $veiculo_componente->delete($id);
@@ -87,18 +86,13 @@ class VeiculoController extends Controller
         }
     }
 
-    function report()
+    public function report()
     {
-        if (isset($_POST["cancel"])) {
-            $this->redirect();
-        } else {
-            $veiculo = new Veiculo();
-            $model = $this->getFilterModel();
-            $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $model, true);
-
-            $this->set($d);
-            $this->render("report.veiculo");
-        }
+        $veiculo = new Veiculo();
+        $d["veiculos"] = $veiculo->getPaginated(PHP_INT_MAX, 0, $_SESSION["filtros"], true);
+        $d["count"] = $_SESSION["count"];
+        $this->set($d);
+        $this->render("report.veiculo");
     }
 
     private function map()
@@ -119,6 +113,7 @@ class VeiculoController extends Controller
         $model->setMarca($_POST["marca"]);
         $model->setPreco($_POST["preco"]);
         $model->setPrecoFipe($_POST["precoFipe"]);
+        $model->setIdUsuario($_SESSION["idUsuario"]);
 
         return $model;
     }
@@ -128,7 +123,7 @@ class VeiculoController extends Controller
         return header("Location: " . WEBROOT . "veiculo/index");
     }
 
-    private function getFilterModel()
+    private function setFilters()
     {
         $model = new VeiculoModel();
 
@@ -144,9 +139,11 @@ class VeiculoController extends Controller
             $filtros = array_merge($filtros, array("filtro_marca" => $model->getMarca()));
         }
 
+        $model->setIdUsuario($_SESSION["idUsuario"]);
+
         $d["filtro"] = $filtros;
         $this->set($d);
 
-        return empty($filtros) ? null : $model;
+        $_SESSION["filtros"] = $model;
     }
 }

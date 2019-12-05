@@ -165,15 +165,6 @@ function getOffset() {
     document.getElementById("offset").value = getCookie("veiculoOffset");
 }
 
-function refresh() {
-    setCookie("refresh", "true", 1);
-}
-
-function init() {
-    if (getCookie("refresh") == "true") {
-        document.getElementById("form").submit();
-        setCookie("refresh", "false", 1);
-    } else {
-        setCookie("refresh", "false", -1);
-    }
+function removeCookies() {
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 }
