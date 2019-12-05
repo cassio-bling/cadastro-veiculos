@@ -15,6 +15,7 @@ class VeiculoModel extends BaseModel
     private $preco;
     private $precoFipe;
     private $idUsuario;
+    private $componentes;
 
     //Setters    
     public function setDescricao($descricao)
@@ -63,6 +64,10 @@ class VeiculoModel extends BaseModel
     {
         $this->idUsuario = $idUsuario;
     }
+    public function setComponentes($componentes)
+    {
+        $this->componentes = $componentes;
+    }
 
     //Getters    
     public function getDescricao()
@@ -108,5 +113,9 @@ class VeiculoModel extends BaseModel
     public function getIdUsuario()
     {
         return $this->idUsuario;
+    }
+    public function getComponentes()
+    {
+        return $this->componentes;
     }
 }

@@ -6,18 +6,15 @@
 </head>
 
 <body>
-    <?php include ROOT . "templates/layouts/login.php";?>
+    <?php include ROOT . "templates/layouts/login.php"; ?>
     <form method="post" id="form">
-        <?php include ROOT . "templates/layouts/menu.php";?>
+        <?php include ROOT . "templates/layouts/menu.php"; ?>
         <div>
-            <span class="block-half">
-                <h2>Cadastro de veículos</h2>
-            </span>
-            <span class="block-half right">
-                <label>Total de registros: <?php echo $count ?></label>
-            </span>
+            <p>
+                <label>Cadastro de veículos</label>
+                <label class="label-right">Total de registros: <?php echo $count ?></label>
+            </p>
         </div>
-
         <div>
             <button type="button" class="collapsible" name="botaoFiltros">
                 <label class="label-filter">Filtros</label>
@@ -42,9 +39,23 @@
                         <option value="Volkswagen">Volkswagen</option>
                     </select>
                 </span>
+                <span class="block-full">
+                    <label class="page-header">Componentes adicionais</label>
+                    <hr>
+                    <div>
+                        <div>
+                            <?php foreach ($componentes as $componente) : ?>
+                                <span class="block-quarter">
+                                    <input type="checkbox" name="filtro_componentes[]" class="filtro-checkbox" id=<?php echo "componente:" . $componente["id"]; ?>>
+                                    <label class="label-checkbox" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
+                                </span>
+                            <?php endforeach ?>
+                        </div>
+                    </div>
+                </span>
                 <span class="block-quarter">
-                    <input type="submit" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
-                    <input type="submit" class="clear" value="Limpar" id="filter" name="filter" onclick="return cleanFilters()">
+                    <input type="button" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
+                    <input type="button" class="clear" value="Limpar" id="filter" name="filter" onclick="return cleanFilters()">
                 </span>
             </div>
         </div>
@@ -61,7 +72,7 @@
                     </th>
                 </tr>
             </thead>
-            <?php foreach ($data as $row): ?>
+            <?php foreach ($data as $row) : ?>
                 <tr>
                     <td width="40%"><?php echo $row["descricao"] ?></td>
                     <td width="15%"><?php echo $row["placa"] ?></td>
@@ -73,9 +84,9 @@
                         </a>
                     </td>
                 </tr>
-            <?php endforeach?>
+            <?php endforeach ?>
         </table>
-        <?php include ROOT . "templates/layouts/pagination.php";?>
+        <?php include ROOT . "templates/layouts/pagination.php"; ?>
     </form>
 </body>
 

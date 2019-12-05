@@ -10,14 +10,15 @@ class Veiculo extends Base implements ICrud
 
     public function count($model = null)
     {
-        try {
+        try {            
             $conexao = Database::connect();
-
+            
             $query = new Query();
             $query->sql = "SELECT COUNT(id) FROM " . static::TABELA;
             $this->setUser($query, $model->getIdUsuario());
+                        
             $this->setFilters($query, $model);
-            $this->setOrder($query);
+            $this->setOrderBy($query);
 
             $statment = $conexao->prepare($query->sql);
             $statment->bind_param($query->types, ...$query->params);
@@ -41,7 +42,7 @@ class Veiculo extends Base implements ICrud
             $query->sql = "SELECT " . ($allFields ? "*" : "id, descricao, placa, marca") . " FROM " . static::TABELA;
             $this->setUser($query, $model->getIdUsuario());
             $this->setFilters($query, $model);
-            $this->setOrder($query);
+            $this->setOrderBy($query);
             $this->setPagination($query, $limit, $offset);
             
             $statment = $conexao->prepare($query->sql);
@@ -138,5 +139,10 @@ class Veiculo extends Base implements ICrud
             $query->types .= "s";
             array_push($query->params, $model->getMarca());
         }
+
+        if ($model->getComponentes() != null) {
+            $query->sql .= " AND marca = ?";
+        }
+
     }    
 }

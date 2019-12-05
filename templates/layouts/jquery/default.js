@@ -111,26 +111,39 @@ function confirmDelete() {
 
 function cleanFilters() {
     var col = document.getElementsByClassName("filtro");
-
     for (var i = 0; i < col.length; i++) {
         col[i].value = "";
         setCookie(col[i].name, "", -1);
+    };
+
+    var colls = document.getElementsByClassName("filtro-checkbox");
+    for (var i = 0; i < colls.length; i++) {
+        colls[i].checked = false;
+        setCookie(colls[i].id, false, -1);
     };
 }
 
 function saveFilters() {
     var col = document.getElementsByClassName("filtro");
-
     for (var i = 0; i < col.length; i++) {
         setCookie(col[i].name, col[i].value, 1);
+    };
+
+    var colls = document.getElementsByClassName("filtro-checkbox");
+    for (var i = 0; i < colls.length; i++) {
+        setCookie(colls[i].id, colls[i].checked, 1);
     };
 }
 
 function getFilters() {
     var col = document.getElementsByClassName("filtro");
-
     for (var i = 0; i < col.length; i++) {
         col[i].value = getCookie(col[i].name);
+    };
+
+    var colls = document.getElementsByClassName("filtro-checkbox");
+    for (var i = 0; i < colls.length; i++) {
+        colls[i].checked = getCookie(colls[i].id) == "true";
     };
 }
 
