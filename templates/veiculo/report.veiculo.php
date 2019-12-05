@@ -9,11 +9,20 @@
 <body>
     <form method="post">
         <div>
-            <span class="block-half">
+            <span class="block-full">
                 <h3 class="page-header">Relatório de veículos</h3>
+                <label class="label-right">Total de registros: <?php echo $_SESSION["count"] ?></label>
+                <label>Usuário: <?php echo $_SESSION["nomeUsuario"] ?></label>
             </span>
-            <span class="block-half right">
-                <label>Total de registros: <?php echo $count ?></label>
+        </div>
+        <div <?php if (empty($_SESSION["filtros"]->getDescricao())) echo 'hidden' ?>>
+            <span class="block-quarter">
+                <label>Descrição: <?php echo $_SESSION["filtros"]->getDescricao(); ?> </label>
+            </span>
+        </div>
+        <div <?php if (empty($_SESSION["filtros"]->getMarca())) echo 'hidden' ?>>
+            <span class="block-quarter">
+                <label>Marca: <?php echo $_SESSION["filtros"]->getMarca(); ?> </label>
             </span>
         </div>
         <table class="table table-striped">

@@ -19,6 +19,10 @@ label {
     margin-left: 3px;
 }
 
+label.label-right {
+    float: right;
+}
+
 label.label-filter {
     padding: 2px 15px 2px 15px;
     font-size: large;

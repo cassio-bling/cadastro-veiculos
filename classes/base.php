@@ -79,7 +79,7 @@ abstract class Base
         array_push($query->params, $idUsuario);
     }
 
-    protected function setOrder(Query $query)
+    protected function setOrderBy(Query $query)
     {
         $query->sql .= " ORDER BY id";
     }
