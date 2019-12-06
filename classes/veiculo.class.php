@@ -10,13 +10,13 @@ class Veiculo extends Base implements ICrud
 
     public function count($model = null)
     {
-        try {            
+        try {
             $conexao = Database::connect();
-            
+
             $query = new Query();
             $query->sql = "SELECT COUNT(id) FROM " . static::TABELA;
             $this->setUser($query, $model->getIdUsuario());
-                        
+
             $this->setFilters($query, $model);
             $this->setOrderBy($query);
 
@@ -43,12 +43,12 @@ class Veiculo extends Base implements ICrud
             $this->setUser($query, $model->getIdUsuario());
             $this->setFilters($query, $model);
             $this->setOrderBy($query);
-            $this->setPagination($query, $limit, $offset);
-            
+            $this->setPagination($query, $limit, $offset);            
+
             $statment = $conexao->prepare($query->sql);
             $statment->bind_param($query->types, ...$query->params);
             $statment->execute();
-
+            
             $result = $statment->get_result();
 
             return $result;
@@ -61,17 +61,17 @@ class Veiculo extends Base implements ICrud
     {
         try {
             $conexao = Database::connect();
-            
+
             $query = new Query();
             $query->sql = "INSERT INTO " . self::TABELA . " (descricao, placa, codigoRenavam, anoModelo, anoFabricacao, cor, km, marca, preco, precoFipe, idUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $query->types = "sssiisisddi";
             $query->params = $this->parse($model);
-            
+
             $statment = $conexao->prepare($query->sql);
             $statment->bind_param($query->types, ...$query->params);
             $statment->execute();
-            
-            return $statment->insert_id;            
+
+            return $statment->insert_id;
         } finally {
             Database::disconnect();
         }
@@ -86,13 +86,13 @@ class Veiculo extends Base implements ICrud
             $query->sql = "UPDATE " . self::TABELA . " SET descricao = ?, placa = ?, codigoRenavam = ?, anoModelo = ?, anoFabricacao = ?, cor = ?, km = ?, marca = ?, preco = ?, precoFipe = ?, idUsuario = ? WHERE id = ?";
             $query->types = "sssiisisddii";
             $query->params = $this->parse($model);
-            
+
             $statment = $conexao->prepare($query->sql);
             $statment->bind_param($query->types, ...$query->params);
             $statment->execute();
-            
+
             $resultado = $statment->execute();
-            
+
             return $resultado;
         } finally {
             Database::disconnect();
@@ -141,8 +141,11 @@ class Veiculo extends Base implements ICrud
         }
 
         if ($model->getComponentes() != null) {
-            $query->sql .= " AND marca = ?";
+            $in = str_repeat("?,", count($model->getComponentes()) - 1) . "?";
+            $query->sql .= " AND (SELECT COUNT(idVeiculo) FROM veiculo_componente WHERE idComponente IN ($in) AND id = idVeiculo) = ?";
+            $query->types .= str_repeat("i", count($model->getComponentes())) . "i";
+            array_push($query->params, ...$model->getComponentes());
+            array_push($query->params, count($model->getComponentes()));
         }
-
-    }    
+    }
 }

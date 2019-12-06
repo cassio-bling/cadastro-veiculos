@@ -11,19 +11,19 @@ class VeiculoController extends Controller
     const LIMIT = 10;
 
     public function index()
-    {        
+    {
         if (!isset($_SESSION["filtros"]) || isset($_POST["filter"])) {
-            $this->setFilters();    
+            $this->setFilters();
         }
 
         $veiculo = new Veiculo();
         $_SESSION["count"] = $veiculo->count($_SESSION["filtros"]);
         $this->managePagination($_SESSION["count"]);
         $d["data"] = $veiculo->getPaginated(self::LIMIT, $this->offset, $_SESSION["filtros"]);
-        
+
         $componente = new Componente();
         $d["componentes"] = $componente->getAll();
-        
+
         $this->set($d);
         $this->render("index");
     }
@@ -128,7 +128,7 @@ class VeiculoController extends Controller
 
     private function setFilters()
     {
-        $model = new VeiculoModel();        
+        $model = new VeiculoModel();
 
         if (isset($_POST["filtro_descricao"]) && !empty(trim($_POST["filtro_descricao"]))) {
             $model->setDescricao($_POST["filtro_descricao"]);
@@ -139,12 +139,10 @@ class VeiculoController extends Controller
         }
 
         $model->setIdUsuario($_SESSION["idUsuario"]);
-
-        if (isset($_POST["filtro_componentes"])) {
-            $model->setComponentes($_POST["filtro_componentes"]);
-            $_SESSION["filtro_componentes"] = $_POST["filtro_componentes"];
-        }
-        else {
+        if (isset($_POST["filtroComponentes"])) {
+            $model->setComponentes($_POST["filtroComponentes"]);
+            $_SESSION["filtro_componentes"] = $_POST["filtroComponentes"];
+        } else {
             $_SESSION["filtro_componentes"] = null;
         }
 
