@@ -46,21 +46,21 @@
                         <div>
                             <?php foreach ($componentes as $componente) : ?>
                                 <span class="block-quarter">
-                                    <input type="checkbox" name="filtro_componentes[]" class="filtro-checkbox" id=<?php echo "componente:" . $componente["id"]; ?>>
-                                    <label class="label-checkbox" for=<?php echo "componente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
+                                    <input type="checkbox" class="filtro-checkbox" name="filtroComponentes[]" id=<?php echo "filtroComponente:" . $componente["id"]; ?> value=<?php echo $componente["id"] ?>>
+                                    <label class="label-checkbox" for=<?php echo "filtroComponente:" . $componente["id"]; ?>><?php echo $componente["descricao"]; ?></label>
                                 </span>
                             <?php endforeach ?>
                         </div>
                     </div>
                 </span>
                 <span class="block-quarter">
-                    <input type="button" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
-                    <input type="button" class="clear" value="Limpar" id="filter" name="filter" onclick="return cleanFilters()">
+                    <input type="submit" class="filter" value="Filtrar" id="filter" name="filter" onclick="return saveFilters()">
+                    <input type="submit" class="clear" value="Limpar" id="filter" name="filter" onclick="return cleanFilters()">
                 </span>
             </div>
         </div>
 
-        <table class="table table-striped">
+        <table id="lista_veiculos" class="table table-striped">
             <thead>
                 <tr>
                     <th>Descrição</th>
@@ -72,6 +72,7 @@
                     </th>
                 </tr>
             </thead>
+            <tbody></tbody>
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <td width="40%"><?php echo $row["descricao"] ?></td>

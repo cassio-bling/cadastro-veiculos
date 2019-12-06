@@ -31,12 +31,12 @@ class VeiculoComponente extends Base
             $in = str_repeat("?,", count($componentes) - 1) . "?";
             $types = str_repeat("i", count($componentes));
 
-            $sql = "DELETE FROM veiculo_componente WHERE idVeiculo = ? AND idComponente NOT IN ($in)";
+            $sql = "DELETE FROM veiculo_componente WHERE idVeiculo = ?";
             $query = $conexao->prepare($sql);
-            $query->bind_param("i" . $types, $id_veiculo, ...$componentes);
+            $query->bind_param("i", $id_veiculo);
             $query->execute();
 
-            $sql = "INSERT IGNORE INTO veiculo_componente (idVeiculo, idComponente) SELECT ?, id FROM componente WHERE id IN ($in)";
+            $sql = "INSERT INTO veiculo_componente (idVeiculo, idComponente) SELECT ?, id FROM componente WHERE id IN ($in)";
             $query = $conexao->prepare($sql);
             $query->bind_param("i" . $types, $id_veiculo, ...$componentes);
             $query->execute();
